@@ -16,17 +16,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
-  const data = await fs.promises.readFile(path, 'utf-8')
-  const carts = JSON.parse(data)
-  const id = carts.lenght + 1
-  const newCart = req.body
-  newCart.id = id
-  carts.push(newCart)
-  fs.writeFileSync(path, JSON.stringify(carts, null, 2))
-  res.status(201).send({ message: 'Cart created', newCart: newCart })
-})
-
 router.post('/:cid/products/:pid', async (req, res) => {
   const data = await fs.promises.readFile(path, 'utf-8')
   const carts = JSON.parse(data)

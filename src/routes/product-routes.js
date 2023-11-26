@@ -52,7 +52,6 @@ router.get('/:id', async (req, res) => {
   const products = JSON.parse(data)
   const id = req.params.id
   const product = products.find((item) => item.id == id)
-  console.log(products)
   if (product === undefined || !product) {
     res.status(404).send({ message: 'Product not found' })
   } else {
