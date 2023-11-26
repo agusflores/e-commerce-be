@@ -1,0 +1,11 @@
+[
+	{
+		"title": "Producto 2",
+		"description": "Descripcion del producto 2",
+		"code": "0002",
+		"price": 100.1,
+		"stock": 20,
+		"category": "Pantalones",
+		"id": 2
+	}
+]
