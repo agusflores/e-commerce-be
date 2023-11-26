@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "6e67d8f0-0377-4731-b660-34c2c41122da",
+		"name": "ProgramacionBE-Coderhouse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20659441"
+	},
+	"item": [
+		{
+			"name": "Primer Entrega PF",
+			"item": [
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "get products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/products"
+							},
+							"response": []
+						},
+						{
+							"name": "get product by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/products/d946e9c9-4d77-4698-abf8-49a590ab3147"
+							},
+							"response": []
+						},
+						{
+							"name": "update product by id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"title\": \"Producto 1\", \r\n    \"description\": \"Descripcion del producto 1\",\r\n    \"code\": \"0001\",\r\n    \"price\": 100.10,\r\n    \"stock\": 20, \r\n    \"category\": \"Remeras\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/products/d946e9c9-4d77-4698-abf8-49a590ab3147"
+							},
+							"response": []
+						},
+						{
+							"name": "delete product by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/products/"
+							},
+							"response": []
+						},
+						{
+							"name": "post product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"title\": \"Producto 1\", \r\n    \"description\": \"Descripcion del producto 1\",\r\n    \"code\": \"0001\",\r\n    \"price\": 200.50,\r\n    \"stock\": 15, \r\n    \"category\": \"Remeras\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/products"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "get cart",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/cart/16b6e73f-68b0-48f1-92f9-fb9541470619"
+							},
+							"response": []
+						},
+						{
+							"name": "post product in cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 15\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/cart/86a271b3-c5fa-4886-901c-ce969b29f810/products/d946e9c9-4d77-4698-abf8-49a590ab3146"
+							},
+							"response": []
+						},
+						{
+							"name": "post cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"products\": [\r\n        {\r\n            \"id\": \"d946e9c9-4d77-4698-abf8-49a590ab3146\",\r\n            \"quantity\": 15\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/cart/"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
