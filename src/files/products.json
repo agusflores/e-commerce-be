@@ -1,11 +1,11 @@
 [
 	{
-		"title": "Producto 2",
-		"description": "Descripcion del producto 2",
-		"code": "0002",
+		"title": "Producto 1",
+		"description": "Descripcion del producto 1",
+		"code": "0001",
 		"price": 100.1,
 		"stock": 20,
-		"category": "Pantalones",
-		"id": 2
+		"category": "Remeras",
+		"id": "d946e9c9-4d77-4698-abf8-49a590ab3147"
 	}
 ]

@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import { Router } from 'express'
 import fs from 'fs'
 
@@ -24,10 +25,8 @@ router.post('/', async (req, res) => {
   const data = await fs.promises.readFile(path, 'utf-8')
   const products = await JSON.parse(data)
   const defaultStatus = true
-  const id = products.length + 1
   const newProduct = req.body
-  newProduct.id = id
-
+  newProduct.id = randomUUID()
   if (
     newProduct.title === undefined ||
     newProduct.description === undefined ||
@@ -81,7 +80,7 @@ router.put('/:id', async (req, res) => {
     if (index === -1) {
       res.status(404).send({ message: 'Product not found' })
     } else {
-      newProduct.id = parseInt(id)
+      newProduct.id = id
       products[index] = newProduct
       await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'))
       res.status(200).send({ message: 'Product updated', product: newProduct })
