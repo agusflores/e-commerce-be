@@ -12,12 +12,14 @@ router.get('/', async (req, res) => {
     let limit = req.query.limit
 
     if (limit === undefined || limit === '') {
-      res.status(200).send({ products: products })
+      res.status(200).send({ status: 'success', products: products })
     } else {
-      res.status(200).send({ products: products.slice(0, limit) })
+      res
+        .status(200)
+        .send({ status: 'success', products: products.slice(0, limit) })
     }
   } else {
-    res.status(404).send({ message: 'File not found' })
+    res.status(404).send({ status: 'error', message: 'File not found' })
   }
 })
 
@@ -35,7 +37,7 @@ router.post('/', async (req, res) => {
     newProduct.stock === undefined ||
     newProduct.category === undefined
   ) {
-    res.status(400).send({ message: 'Missing fields' })
+    res.status(400).send({ status: 'error', message: 'Missing fields' })
   } else {
     if (newProduct.status === undefined) {
       newProduct.status = defaultStatus
@@ -43,7 +45,11 @@ router.post('/', async (req, res) => {
 
     products.push(newProduct)
     await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'))
-    res.status(201).send({ message: 'Product created', product: newProduct })
+    res.status(201).send({
+      status: 'success',
+      message: 'Product created',
+      product: newProduct,
+    })
   }
 })
 
@@ -53,9 +59,9 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
   const product = products.find((item) => item.id == id)
   if (product === undefined || !product) {
-    res.status(404).send({ message: 'Product not found' })
+    res.status(404).send({ status: 'error', message: 'Product not found' })
   } else {
-    res.status(200).send({ product: product })
+    res.status(200).send({ status: 'success', product: product })
   }
 })
 
@@ -73,16 +79,20 @@ router.put('/:id', async (req, res) => {
     newProduct.stock === undefined ||
     newProduct.category === undefined
   ) {
-    res.status(400).send({ message: 'Missing fields' })
+    res.status(400).send({ status: 'error', message: 'Missing fields' })
   } else {
     const index = products.findIndex((item) => item.id == id)
     if (index === -1) {
-      res.status(404).send({ message: 'Product not found' })
+      res.status(404).send({ status: 'error', message: 'Product not found' })
     } else {
       newProduct.id = id
       products[index] = newProduct
       await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'))
-      res.status(200).send({ message: 'Product updated', product: newProduct })
+      res.status(200).send({
+        status: 'success',
+        message: 'Product updated',
+        product: newProduct,
+      })
     }
   }
 })
@@ -93,11 +103,11 @@ router.delete('/:id', async (req, res) => {
   const id = req.params.id
   const index = products.findIndex((item) => item.id == id)
   if (index === -1) {
-    res.status(404).send({ message: 'Product not found' })
+    res.status(404).send({ status: 'error', message: 'Product not found' })
   } else {
     products.splice(index, 1)
     await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'))
-    res.status(200).send({ message: 'Product deleted' })
+    res.status(200).send({ status: 'success', message: 'Product deleted' })
   }
 })
 

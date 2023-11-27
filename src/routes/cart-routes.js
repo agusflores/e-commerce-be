@@ -11,9 +11,9 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
   const cartToFind = carts.find((item) => item.id == id)
   if (cartToFind === undefined || !cartToFind) {
-    res.status(404).send({ message: 'Cart not found' })
+    res.status(404).send({ status: 'error', message: 'Cart not found' })
   } else {
-    res.status(200).send({ cart: cartToFind })
+    res.status(200).send({ status: 'success', cart: cartToFind })
   }
 })
 
@@ -25,7 +25,9 @@ router.post('/', async (req, res) => {
   newCart.id = id
   carts.push(newCart)
   await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-  res.status(201).send({ message: 'Cart created', newCart: newCart })
+  res
+    .status(201)
+    .send({ status: 'success', message: 'Cart created', newCart: newCart })
 })
 
 router.post('/:cid/products/:pid', async (req, res) => {
@@ -37,7 +39,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
   const cartIndex = carts.findIndex((item) => item.id === cartIdToFind)
 
   if (cartIndex === -1) {
-    res.status(404).send({ message: 'Cart not found' })
+    res.status(404).send({ status: 'error', message: 'Cart not found' })
   } else {
     const productIndex = carts[cartIndex].products.findIndex(
       (item) => item.id == productIdToFind
@@ -45,7 +47,9 @@ router.post('/:cid/products/:pid', async (req, res) => {
     if (productIndex !== -1) {
       carts[cartIndex].products[productIndex].quantity += productQuantityToAdd
       await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-      res.status(201).send({ message: 'Product quantity modified' })
+      res
+        .status(201)
+        .send({ status: 'success', message: 'Product quantity modified' })
     } else {
       let product = {
         id: productIdToFind,
@@ -53,7 +57,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
       }
       carts[cartIndex].products.push(product)
       await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-      res.status(201).send({ message: 'New product added' })
+      res.status(201).send({ status: 'success', message: 'New product added' })
     }
   }
 })
