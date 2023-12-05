@@ -34,9 +34,7 @@ app.get('/', (req, res) => {
 const socketServer = new Server(httpServer)
 
 socketServer.on('connection', (socket) => {
-  console.log('¡New Connection', socket.id)
   socket.on('new-product', async (product) => {
-    console.log(product)
     const products = await getProducts()
     products.push(product)
     socketServer.emit('products', products)

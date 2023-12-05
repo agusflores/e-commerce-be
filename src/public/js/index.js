@@ -1,12 +1,11 @@
 import { randomUUID } from 'crypto'
 
 const socket = io()
-console.log(socket.id);
+
 const listProducts = document.getElementById('list-products')
 const addProductButton = document.getElementById('add-product')
 
 addProductButton.addEventListener('click', () => {
-
   const newProduct = {
     title: document.getElementById('title').value,
     description: document.getElementById('description').value,
@@ -26,7 +25,6 @@ socket.on('products', (products) => {
   let infoProducts = ''
   listProducts.innerHTML = `<ul>`
   products.forEach((p) => {
-    console.log(JSON.stringify(p))
     infoProducts += `<li>
         <strong>Id: </strong>${p.id}<br>
         <strong>Titulo: </strong>${p.title}<br>
