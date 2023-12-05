@@ -7,5 +7,69 @@
 		"stock": 20,
 		"category": "Remeras",
 		"id": "d946e9c9-4d77-4698-abf8-49a590ab3147"
+	},
+	{
+		"title": "Producto 2",
+		"description": "Descripcion del producto 2",
+		"code": "0002",
+		"price": 100.1,
+		"stock": 20,
+		"category": "Remeras",
+		"id": "5496e4f4-6962-4358-bedc-6f781e8e5601"
+	},
+	{
+		"title": "Producto 3",
+		"description": "Descripcion producto 3",
+		"code": "0003",
+		"price": 200,
+		"stock": 15,
+		"thumbnail": "",
+		"category": "Pantalones",
+		"id": "8a39e0a4-5d72-4815-b44d-54425aeb92d8",
+		"status": true
+	},
+	{
+		"title": "Producto 4",
+		"description": "Descripcion producto 4",
+		"code": "0004",
+		"price": 200,
+		"stock": 15,
+		"thumbnail": "",
+		"category": "Pantalones",
+		"id": "993b4290-8799-4396-b15b-41562ca88774",
+		"status": true
+	},
+	{
+		"title": "Producto 5 ",
+		"description": "Descripcion producto 5",
+		"code": "0005",
+		"price": 350,
+		"stock": 15,
+		"thumbnail": "",
+		"category": "Remeras",
+		"id": "77e114ed-6404-4d5b-b699-645b70554559",
+		"status": true
+	},
+	{
+		"title": "Producto 6",
+		"description": "Descripcion producto 6",
+		"code": "0006",
+		"price": 350,
+		"stock": 15,
+		"thumbnail": "",
+		"category": "Remeras",
+		"id": "4ec5214f-586b-4c17-a851-827f2aff4af7",
+		"status": true
+	},
+	{
+		"title": "Producto 7 ",
+		"description": "Descripcion producto 7 ",
+		"code": "0007 ",
+		"price": 250,
+		"stock": 25,
+		"thumbnail": "",
+		"category": "Remeras",
+		"id": "922c896e-5fc8-491a-9446-3714f0ff59a2",
+		"status": true
 	}
 ]
