@@ -5,7 +5,8 @@ import cartRouter from './routes/cart-routes.js'
 import viewsRouter from './routes/views-router.js'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
-import { getProducts } from './routes/views-router.js'
+import ProductManager from './manager/ProductManager.js'
+
 const PORT = 8080
 const app = express()
 
@@ -32,11 +33,14 @@ app.get('/', (req, res) => {
 })
 
 const socketServer = new Server(httpServer)
+const productsManager = new ProductManager()
 
-socketServer.on('connection', (socket) => {
+socketServer.on('connection', async (socket) => {
+
+  socket.emit('initial-products', await productsManager.getProducts())
+  
   socket.on('new-product', async (product) => {
-    const products = await getProducts()
-    products.push(product)
+    const products = await productsManager.addProduct(product)
     socketServer.emit('products', products)
   })
 })

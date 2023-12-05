@@ -41,21 +41,10 @@
     <button id='add-product'>Agregar Producto</button>
   </form>
 
+  <h1>Lista de productos actualizada</h1>
   <div>
-    <h1>Lista de productos actualizada</h1>
-    <ul>
-      {{#each products}}
-        <li>
-          <strong>Titulo: </strong>{{this.title}}<br />
-          <strong>Precio: </strong>{{this.price}}<br />
-          <strong>Descripcion: </strong>{{this.description}}<br />
-          <strong>Categoria: </strong>{{this.category}}<br />
-          {{#if this.image}}
-            <img src='{{this.image}}' alt='{{this.title}}' />
-          {{/if}}
-        </li>
-        <br />
-      {{/each}}
+    <ul id='list-products'>
+
     </ul>
   </div>
 </div>

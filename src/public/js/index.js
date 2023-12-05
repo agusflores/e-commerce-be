@@ -1,7 +1,30 @@
 const socket = io()
 
-const listProducts = document.getElementById('list-products')
 const addProductButton = document.getElementById('add-product')
+
+socket.on('initial-products', (products) => {
+  renderProducts(products)
+})
+
+const renderProducts = (products) => {
+  const listProducts = document.getElementById('list-products')
+  listProducts.innerHTML = ''
+  products.forEach((prod) => {
+    const item = document.createElement('li')
+    const content = `<strong>Titulo: </strong>${prod.title}<br />
+    <strong>Precio: </strong>${prod.price}<br />
+    <strong>Descripcion: </strong>${prod.description}<br />
+    <strong>Codigo: </strong>${prod.code}<br />
+    <strong>Stock: </strong>${prod.stock}<br />
+    <strong>Categoria: </strong>${prod.category}<br />
+    <br>
+    `
+
+    item.innerHTML = content
+    listProducts.appendChild(item)
+  })
+}
+
 addProductButton.addEventListener('click', () => {
   const newProduct = {
     title: document.getElementById('title').value,

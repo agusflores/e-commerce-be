@@ -49,5 +49,27 @@
 		"category": "Remeras",
 		"id": "77e114ed-6404-4d5b-b699-645b70554559",
 		"status": true
+	},
+	{
+		"title": "Producto 6",
+		"description": "Descripcion producto 6 ",
+		"code": "0006",
+		"price": 255,
+		"stock": 15,
+		"thumbnail": "",
+		"category": "Remeras",
+		"id": "77e114ed-6404-4d5b-b699-645b705545591",
+		"status": true
+	},
+	{
+		"title": "Producto 7",
+		"description": "Descripcion producto 7",
+		"code": "0007",
+		"price": 250,
+		"stock": 13,
+		"thumbnail": "",
+		"category": "Zapatillas",
+		"id": "77e114ed-6404-4d5b-b699-645b7055455911",
+		"status": true
 	}
 ]
