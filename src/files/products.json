@@ -49,27 +49,5 @@
 		"category": "Remeras",
 		"id": "77e114ed-6404-4d5b-b699-645b70554559",
 		"status": true
-	},
-	{
-		"title": "Producto 6",
-		"description": "Descripcion producto 6",
-		"code": "0006",
-		"price": 350,
-		"stock": 15,
-		"thumbnail": "",
-		"category": "Remeras",
-		"id": "4ec5214f-586b-4c17-a851-827f2aff4af7",
-		"status": true
-	},
-	{
-		"title": "Producto 7 ",
-		"description": "Descripcion producto 7 ",
-		"code": "0007 ",
-		"price": 250,
-		"stock": 25,
-		"thumbnail": "",
-		"category": "Remeras",
-		"id": "922c896e-5fc8-491a-9446-3714f0ff59a2",
-		"status": true
 	}
 ]

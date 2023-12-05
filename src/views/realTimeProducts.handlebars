@@ -1,19 +1,16 @@
 <div>
-  <form method='post' action='/views/realTimeProducts'>
+  <form>
     <label for='title'>Titulo:</label>
     <input type='text' id='title' name='title' placeholder='Titulo' required />
-    <br /><br />
     <label for='description'>Descripción:</label>
-    <textarea
+    <input
       id='description'
       name='description'
       placeholder='Descripcion'
       required
-    ></textarea>
-    <br /><br />
+    />
     <label for='code'>Codigo:</label>
     <input type='text' id='code' name='code' placeholder='Codigo' required />
-    <br /><br />
     <label for='price'>Precio:</label>
     <input
       type='number'
@@ -22,7 +19,6 @@
       placeholder='Precio'
       required
     />
-    <br /><br />
     <label for='category'>Categoría:</label>
     <input
       type='text'
@@ -31,18 +27,30 @@
       placeholder='Categoria'
       required
     />
-    <br /><br />
     <label for='stock'>Stock:</label>
     <input type='number' id='stock' name='stock' placeholder='Stock' required />
-    <br /><br />
     <label for='thumbnail'>URL de la Imagen:</label>
     <input type='url' id='thumbnail' name='thumbnail' placeholder='Imagen' />
-    <br /><br />
-    <input id='add-product' type='submit' value='Enviar' />
+
+    <button id='add-product'>Enviar</button>
   </form>
 
   <div>
     <h1>Lista de productos actualizada</h1>
+    <ul>
+      {{#each products}}
+        <li>
+          <strong>Titulo: </strong>{{this.title}}<br />
+          <strong>Precio: </strong>{{this.price}}<br />
+          <strong>Descripcion: </strong>{{this.description}}<br />
+          <strong>Categoria: </strong>{{this.category}}<br />
+          {{#if this.image}}
+            <img src='{{this.image}}' alt='{{this.title}}' />
+          {{/if}}
+        </li>
+        <br />
+      {{/each}}
+    </ul>
   </div>
 
 </div>

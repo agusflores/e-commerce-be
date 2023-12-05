@@ -1,10 +1,25 @@
-const socket = io()
+import { randomUUID } from 'crypto'
 
+const socket = io()
+console.log(socket.id);
 const listProducts = document.getElementById('list-products')
 const addProductButton = document.getElementById('add-product')
 
 addProductButton.addEventListener('click', () => {
-  socket.emit('new-product', 'Se ha agregado un nuevo producto')
+
+  const newProduct = {
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    code: document.getElementById('code').value,
+    price: parseInt(document.getElementById('price').value),
+    stock: parseInt(document.getElementById('stock').value),
+    thumbnail: document.getElementById('thumbnail').value,
+    category: document.getElementById('category').value,
+    id: randomUUID(),
+    status: true,
+  }
+
+  socket.emit('new-product', newProduct)
 })
 
 socket.on('products', (products) => {
