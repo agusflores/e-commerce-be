@@ -1,10 +1,7 @@
-import { randomUUID } from 'crypto'
-
 const socket = io()
 
 const listProducts = document.getElementById('list-products')
 const addProductButton = document.getElementById('add-product')
-
 addProductButton.addEventListener('click', () => {
   const newProduct = {
     title: document.getElementById('title').value,
@@ -14,10 +11,10 @@ addProductButton.addEventListener('click', () => {
     stock: parseInt(document.getElementById('stock').value),
     thumbnail: document.getElementById('thumbnail').value,
     category: document.getElementById('category').value,
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     status: true,
   }
-
+  console.log(newProduct)
   socket.emit('new-product', newProduct)
 })
 
