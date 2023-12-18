@@ -17,7 +17,8 @@
 ``` mermaid
 timeline
     title React Coderhouse
-    Primera entrega 07/09/2023 : NavBar : Primeros Componentes
-    Segunda entrega 26/09/2023 : Routing : Navegacion 
-    Entrega final 17/10/2023   : Proyecto Final terminado
+    Primera entrega 21/11/2023 : Servidor Node JS : Servicios 
+    Segunda entrega 21/12/2023 : MongoDB : Paginacion : Profesionalizar servicios 
+    Tercera entrega 13/02/2024 : Mejora arquitectura del servidor
+    Entrega final   09/04/2024 : Entrega proyecto final
 ```
