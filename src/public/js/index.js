@@ -37,7 +37,6 @@ addProductButton.addEventListener('click', () => {
     id: crypto.randomUUID(),
     status: true,
   }
-  console.log(newProduct)
   socket.emit('new-product', newProduct)
 })
 

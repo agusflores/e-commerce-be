@@ -5,10 +5,16 @@ import cartRouter from './routes/cart-routes.js'
 import viewsRouter from './routes/views-router.js'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
-import ProductManager from './manager/ProductManager.js'
+import mongoose from 'mongoose'
+import messageModel from './dao/models/message.model.js'
+import productModel from './dao/models/product.model.js'
 
 const PORT = 8080
 const app = express()
+const MONGO =
+  'mongodb+srv://agustinflores1505:tUreQzQk6yGuuN55@cluster0.2gugbsj.mongodb.net/e-commerce?retryWrites=true&w=majority'
+
+const connection = mongoose.connect(MONGO)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -33,14 +39,25 @@ app.get('/', (req, res) => {
 })
 
 const socketServer = new Server(httpServer)
-const productsManager = new ProductManager()
+const products = await productModel.find()
 
 socketServer.on('connection', async (socket) => {
-
-  socket.emit('initial-products', await productsManager.getProducts())
-  
+  socket.emit('initial-products', products)
   socket.on('new-product', async (product) => {
-    const products = await productsManager.addProduct(product)
+    await productModel.create(product)
+    const products = await productModel.find()
     socketServer.emit('products', products)
+  })
+
+  socket.on('chat-message', async (data) => {
+    await messageModel.create(data)
+    const messages = await messageModel.find()
+    socketServer.emit('messages', messages)
+  })
+
+  socket.on('new-user', async (username) => {
+    const messages = await messageModel.find()
+    socket.emit('messages', messages)
+    socket.broadcast.emit('new-user', username)
   })
 })

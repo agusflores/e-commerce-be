@@ -1,14 +1,5 @@
 [
 	{
-		"title": "Producto 1",
-		"description": "Descripcion del producto 1",
-		"code": "0001",
-		"price": 100.1,
-		"stock": 20,
-		"category": "Remeras",
-		"id": "d946e9c9-4d77-4698-abf8-49a590ab3147"
-	},
-	{
 		"title": "Producto 2",
 		"description": "Descripcion del producto 2",
 		"code": "0002",
@@ -59,17 +50,6 @@
 		"thumbnail": "",
 		"category": "Remeras",
 		"id": "77e114ed-6404-4d5b-b699-645b705545591",
-		"status": true
-	},
-	{
-		"title": "Producto 7",
-		"description": "Descripcion producto 7",
-		"code": "0007",
-		"price": 250,
-		"stock": 13,
-		"thumbnail": "",
-		"category": "Zapatillas",
-		"id": "77e114ed-6404-4d5b-b699-645b7055455911",
 		"status": true
 	}
 ]

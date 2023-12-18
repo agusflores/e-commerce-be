@@ -1,65 +1,78 @@
-import { randomUUID } from 'crypto'
 import { Router } from 'express'
-import fs from 'fs'
+import cartModel from '../dao/models/cart.model.js'
+import productModel from '../dao/models/product.model.js'
 
 const router = Router()
-const path = './files/cart.json'
 
 router.get('/:id', async (req, res) => {
-  const data = await fs.promises.readFile(path, 'utf-8')
-  const carts = JSON.parse(data)
   const id = req.params.id
-  const cartToFind = carts.find((item) => item.id == id)
-  if (cartToFind === undefined || !cartToFind) {
-    res.status(404).send({ status: 'error', message: 'Cart not found' })
-  } else {
-    res.status(200).send({ status: 'success', cart: cartToFind })
-  }
+
+  const result = await cartModel.find({ _id: id })
+  return res.send({
+    status: 'success',
+    message: result,
+  })
 })
 
 router.post('/', async (req, res) => {
-  const data = await fs.promises.readFile(path, 'utf-8')
-  const carts = JSON.parse(data)
-  const id = randomUUID()
-  const newCart = req.body
-  newCart.id = id
-  carts.push(newCart)
-  await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-  res
-    .status(201)
-    .send({ status: 'success', message: 'Cart created', newCart: newCart })
+  const products = await req.body.products.map((p) => {
+    return {
+      productId: p.id,
+      quantity: p.quantity,
+    }
+  })
+
+  const newCart = {
+    products: products,
+  }
+
+  const result = await cartModel.create(newCart)
+  return res.status({
+    status: 'success',
+    message: result,
+  })
 })
 
 router.post('/:cid/products/:pid', async (req, res) => {
-  const data = await fs.promises.readFile(path, 'utf-8')
-  const carts = JSON.parse(data)
   const cartIdToFind = req.params.cid
   const productIdToFind = req.params.pid
   const productQuantityToAdd = req.body.quantity
-  const cartIndex = carts.findIndex((item) => item.id === cartIdToFind)
 
-  if (cartIndex === -1) {
-    res.status(404).send({ status: 'error', message: 'Cart not found' })
-  } else {
-    const productIndex = carts[cartIndex].products.findIndex(
-      (item) => item.id == productIdToFind
-    )
-    if (productIndex !== -1) {
-      carts[cartIndex].products[productIndex].quantity += productQuantityToAdd
-      await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-      res
-        .status(201)
-        .send({ status: 'success', message: 'Product quantity modified' })
-    } else {
-      let product = {
-        id: productIdToFind,
-        quantity: productQuantityToAdd,
-      }
-      carts[cartIndex].products.push(product)
-      await fs.promises.writeFile(path, JSON.stringify(carts, null, '\t'))
-      res.status(201).send({ status: 'success', message: 'New product added' })
-    }
+  const cart = await cartModel.findOne({ _id: cartIdToFind })
+  if (!cart) {
+    return res.status(404).send({ status: 'error', message: 'Cart not found' })
   }
+
+  const product = await productModel.findOne({ _id: productIdToFind })
+  if (!product) {
+    return res
+      .status(404)
+      .send({ status: 'error', message: 'Product not found' })
+  }
+
+  const productExistsInCart = await cart.products.find(
+    (p) => p.productId === productIdToFind
+  )
+
+  if (!productExistsInCart) {
+    cart.products.push({
+      productId: product._id,
+      quantity: productQuantityToAdd,
+    })
+  } else {
+    const index = cart.products.findIndex(
+      (p) => p.productId === productIdToFind
+    )
+    cart.products[index].quantity += productQuantityToAdd
+  }
+  const result = await cartModel.updateOne(
+    { _id: cartIdToFind },
+    { $set: cart }
+  )
+  return res.send({
+    status: 'success',
+    message: result,
+  })
 })
 
 export default router

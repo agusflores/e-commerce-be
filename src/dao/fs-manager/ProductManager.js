@@ -21,7 +21,7 @@ export default class ProductManager {
       return 'El archivo esta vacio'
     } else {
       const product = products.find((prod) => prod.id === id)
-      product ? product : 'Not Found'
+      return product
     }
   }
 
@@ -53,9 +53,7 @@ export default class ProductManager {
           this.path,
           JSON.stringify(products, null, '\t')
         )
-        return products
-      } else {
-        return 'Not Found'
+        return products[productIndex]
       }
     } catch (error) {
       console.log(error)
@@ -71,9 +69,7 @@ export default class ProductManager {
         this.path,
         JSON.stringify(products, null, '\t')
       )
-      return products
-    } else {
-      return 'Not Found'
+      return products[productIndex]
     }
   }
 }
