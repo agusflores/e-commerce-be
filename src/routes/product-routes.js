@@ -8,7 +8,7 @@ const router = Router()
 router.get('/', async (req, res) => {
   let limit = req.query.limit
   const result = await productModel.find().limit(limit)
-  res.send({
+  res.json({
     status: 'success',
     message: result,
   })
@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
 
   const result = await productModel.find({ _id: id })
-  res.send({
+  res.json({
     status: 'success',
     message: result,
   })
@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
       newProduct.status = defaultStatus
     }
     const result = await productModel.create(newProduct)
-    res.status({
+    res.json({
       status: 'success',
       message: result,
     })
@@ -52,7 +52,7 @@ router.put('/:id', async (req, res) => {
       { _id: id },
       { $set: newProduct }
     )
-    res.send({
+    res.json({
       status: 'success',
       message: result,
     })
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const id = req.params.id
   const result = await productModel.deleteOne({ _id: id })
-  res.send({
+  res.json({
     status: 'success',
     message: result,
   })

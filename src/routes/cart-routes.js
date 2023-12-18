@@ -8,7 +8,7 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
 
   const result = await cartModel.find({ _id: id })
-  return res.send({
+  return res.json({
     status: 'success',
     message: result,
   })
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
   }
 
   const result = await cartModel.create(newCart)
-  return res.status({
+  return res.json({
     status: 'success',
     message: result,
   })
@@ -69,7 +69,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
     { _id: cartIdToFind },
     { $set: cart }
   )
-  return res.send({
+  return res.json({
     status: 'success',
     message: result,
   })
