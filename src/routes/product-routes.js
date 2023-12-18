@@ -1,8 +1,6 @@
 import { randomUUID } from 'crypto'
 import { Router } from 'express'
 import productModel from '../dao/models/product.model.js'
-import mongoose from 'mongoose'
-
 const router = Router()
 
 router.get('/', async (req, res) => {
