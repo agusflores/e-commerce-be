@@ -6,7 +6,7 @@ const router = new Router()
 
 router.get('/home', async (req, res) => {
   const products = await productModel.find()
-  res.render('home', { products })
+  res.render('home', { products: products.map((p) => p.toJSON()) })
 })
 
 router.get('/realtimeproducts', async (req, res) => {
