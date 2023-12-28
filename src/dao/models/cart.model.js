@@ -6,8 +6,16 @@ const collection = 'Cart'
 const cartSchema = new mongoose.Schema({
   products: [
     {
-      productId: String,
-      quantity: Number,
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: productModel,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+      },
     },
   ],
 })
