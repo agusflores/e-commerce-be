@@ -1,0 +1,23 @@
+<div>
+    <div>
+        <h1>Cart {{cart._id}}</h1>        
+    </div>
+
+    <div>
+        <h2>Lista de productos </h2>
+        <ul>
+            {{#each cart.products}}
+            <li>
+                <p>title: {{this.product.title}}</p>
+                <p>price: {{this.product.price}}</p>
+                <p>thumbnail: {{this.product.thumbnail}}</p>
+                <p>code: {{this.product.code}}</p>
+                <p>description: {{this.product.description}}</p>
+                <p>stock: {{this.product.stock}}</p>
+                <p>category: {{this.product.category}}</p>
+                <p>id: {{this._id}}</p>
+                <p>quantity: {{quantity}}</p>
+            </li>
+            {{/each}}
+    </div>
+</div>
