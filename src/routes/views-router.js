@@ -31,4 +31,32 @@ router.get('/carts/:cid', async (req, res) => {
   res.render('cart', { cart: cart.toJSON() })
 })
 
+router.get('/products', async (req, res) => {
+  let { limit = 10, page = 1, sort, category, status } = req.query
+  const queryOptions = {}
+
+  if (category) {
+    queryOptions.category = category
+  }
+
+  if (status) {
+    if (status === 'available') {
+      queryOptions.stock = { $gt: 0 }
+    } else {
+      queryOptions.stock = { $eq: 0 }
+    }
+  }
+
+  const products = await productModel.paginate(queryOptions, {
+    limit: limit,
+    lean: true,
+    page: page,
+    sort: sort
+      ? { price: sort === 'desc' ? -1 : sort === 'asc' ? 1 : 0 }
+      : undefined,
+  })
+  
+  res.render('products', { products: products })
+})
+
 export default router

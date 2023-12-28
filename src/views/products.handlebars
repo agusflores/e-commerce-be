@@ -1,0 +1,47 @@
+<body>
+
+  <div>
+    <h1>
+      Products
+    </h1>
+
+    <ul>
+      {{#each products.docs}}
+        <li>
+          {{this.title}}
+          {{this.description}}
+          {{this.code}}
+          {{this.price}}
+          {{this.stock}}
+          {{this.category}}
+          {{this.thumbnail}}
+          <label for='cid'>Carrito ID</label>
+          <input type='text' id='cid' name='cid' required />
+          <label for='cid'>Cantidad a agregar</label>
+          <input
+            type='text'
+            id='quantity-product'
+            name='quantity-product'
+            required
+          />
+          <input type='hidden' id='pid' name='pid' value='{{this._id}}' />
+          <button id='submitButton' type='submit'>agregar al carrito</button>
+        </li>
+      {{/each}}
+    </ul>
+
+    <div>
+      ||
+      {{#if products.hasPrevPage}}
+        <a href='/views/products?page={{products.prevPage}}'>anterior</a>
+      {{/if}}
+      ||
+      <span>Pagina {{products.page}} de {{products.totalPages}}</span>
+      ||
+      {{#if products.hasNextPage}}
+        <a href='/views/products?page={{products.nextPage}}'>siguiente</a>
+      {{/if}}
+      ||
+    </div>
+  </div>
+</body>
