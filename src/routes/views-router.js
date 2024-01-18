@@ -55,8 +55,20 @@ router.get('/products', async (req, res) => {
       ? { price: sort === 'desc' ? -1 : sort === 'asc' ? 1 : 0 }
       : undefined,
   })
-  
+
   res.render('products', { products: products })
+})
+
+router.get('/users/register', (req, res) => {
+  res.render('register')
+})
+
+router.get('/users/login', (req, res) => {
+  res.render('login')
+})
+
+router.get('/users', (req, res) => {
+  res.render('profile', { user: req.session.user })
 })
 
 export default router

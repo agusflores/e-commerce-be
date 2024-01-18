@@ -8,6 +8,9 @@ import { Server } from 'socket.io'
 import mongoose from 'mongoose'
 import messageModel from './dao/models/message.model.js'
 import productModel from './dao/models/product.model.js'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+import { userRouter } from './routes/user-routes.js'
 
 const PORT = 8080
 const app = express()
@@ -15,6 +18,17 @@ const MONGO =
   'mongodb+srv://agustinflores1505:tUreQzQk6yGuuN55@cluster0.2gugbsj.mongodb.net/e-commerce?retryWrites=true&w=majority'
 
 const connection = mongoose.connect(MONGO)
+
+app.use(
+  session({
+    store: new MongoStore({
+      mongoUrl: MONGO,
+    }),
+    secret: '1234',
+    resave: false,
+    saveUninitialized: false,
+  })
+)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -28,6 +42,7 @@ const httpServer = app.listen(PORT, () => {
 app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/views', viewsRouter)
+app.use('/users', userRouter)
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
@@ -35,6 +50,8 @@ app.set('views', `${__dirname}/views`)
 app.use(express.static(`${__dirname}/public`))
 
 app.get('/', (req, res) => {
+  req.session.user = 'Active Session'
+  console.log(req.session.user)
   res.redirect('/views/home')
 })
 
