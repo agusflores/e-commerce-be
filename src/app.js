@@ -10,7 +10,9 @@ import messageModel from './dao/models/message.model.js'
 import productModel from './dao/models/product.model.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
-import { userRouter } from './routes/user-routes.js'
+import { userRouter } from './routes/session-routes.js'
+import inicializePassport from './config/passport.config.js'
+import passport from 'passport'
 
 const PORT = 8080
 const app = express()
@@ -30,6 +32,10 @@ app.use(
   })
 )
 
+inicializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -42,7 +48,7 @@ const httpServer = app.listen(PORT, () => {
 app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/views', viewsRouter)
-app.use('/users', userRouter)
+app.use('/api/users', userRouter)
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')

@@ -71,4 +71,8 @@ router.get('/users', (req, res) => {
   res.render('profile', { user: req.session.user })
 })
 
+router.get('/users/resetPassword', (req, res) => {
+  res.render('resetPassword')
+})
+
 export default router
