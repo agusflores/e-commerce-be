@@ -57,10 +57,11 @@ const inicializePassport = () => {
     )
   )
 
-  passport.serializeUser((user, done) => done(null, user._id))
+  passport.serializeUser(function (user, done) {
+    done(null, user)
+  })
 
-  passport.deserializeUser(async (id, done) => {
-    let user = await userModel.findById(id)
+  passport.deserializeUser(function (user, done) {
     done(null, user)
   })
 
@@ -68,28 +69,12 @@ const inicializePassport = () => {
     'github',
     new GitHubStrategy(
       {
-        clientID: 'Iv1.2282c51ff6d0f2e3',
-        clientSecret: '82832f52b19c31c95f95703e2d160504cd73a13f',
-        callbackURL: 'http://localhost:8080/api/session/githubcallback',
+        clientID: 'Iv1.7e58ea00ed9616b6',
+        clientSecret: '92971fcb484806b67ae7fc70bda3cf180d9dc7c6',
+        callbackURL: 'http://localhost:8080/api/users/githubcallback',
       },
       async (accessToken, refreshToken, profile, done) => {
-        try {
-          console.log(profile)
-          let user = await userModel.findOne({ email: profile.__json.email })
-          if (!user) {
-            let newUser = {
-              firstName: profile.__json.firstName,
-              lastName: '',
-              age: 18,
-              email: profile.__json.email,
-              password: '',
-            }
-            let result = await userModel.create(newUser)
-            done(null, result)
-          } else {
-            done(null, user)
-          }
-        } catch {}
+        done(null, profile)
       }
     )
   )

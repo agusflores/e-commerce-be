@@ -5,28 +5,6 @@ import passport from 'passport'
 
 const router = new Router()
 
-// router.post('/register', async (req, res) => {
-//   const { firstName, lastName, age, email, password } = req.body
-//   const existUser = await userModel.findOne({ email: email })
-//   if (existUser) {
-//     return res.send({ status: 'error', error: 'user exists' })
-//   } else {
-//     const user = {
-//       firstName,
-//       lastName,
-//       age,
-//       email,
-//       password: createHash(password),
-//     }
-
-//     if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
-//       await userModel.create({ ...user, role: 'admin' })
-//     } else {
-//       await userModel.create(user)
-//     }
-//   }
-// })
-
 router.post(
   '/register',
   passport.authenticate('register', { failureRedirect: '' }),
@@ -40,7 +18,7 @@ router.post(
 
 router.post(
   '/login',
-  passport.authenticate('login', { failureRedirect: '' }),
+  passport.authenticate('login', { failureRedirect: '/views/users/login' }),
   async (req, res) => {
     if (!req.user) {
       return res.status(400).send({
@@ -56,38 +34,6 @@ router.post(
     return res.send({ status: 'success', payload: req.session.user })
   }
 )
-
-// router.post('/login', async (req, res) => {
-//   const { email, password } = req.body
-//   console.log(email, password)
-//   const user = await userModel.findOne({ email })
-
-//   if (!user) {
-//     return res.status(400).send({
-//       status: 'Error',
-//       error: 'Datos incorrectos',
-//     })
-//   }
-
-//   if (!validatePassword(password, user)) {
-//     return res.status(400).send({
-//       status: 'Error',
-//       error: 'Datos incorrectos',
-//     })
-//   }
-
-//   req.session.user = {
-//     fullName: `${user.firstName} ${user.lastName}`,
-//     email: user.email,
-//     age: user.age,
-//   }
-//   res.send({
-//     status: 200,
-//     payload: req.session.user,
-//     message: 'login',
-//   })
-//   console.log('Usuario encontrado:', req.session.user)
-// })
 
 router.post('/resetPassword', async (req, res) => {
   const { email, password } = req.body
@@ -115,16 +61,16 @@ router.post('/resetPassword', async (req, res) => {
 
 router.get(
   '/github',
-  passport.authenticate('github', { scope: ['user:email'] }),
+  passport.authenticate('github', { scope: ['user:email'], sesion: false }),
   async (req, res) => {}
 )
 
 router.get(
   '/githubcallback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { scope: ['user:email'], sesion: false }),
   async (req, res) => {
-    req.session.user = req.user
-    res.redirect('/')
+    console.log(req.user)
+    res.redirect('/views/home')
   }
 )
 
