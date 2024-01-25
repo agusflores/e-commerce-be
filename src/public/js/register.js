@@ -13,7 +13,11 @@ form.addEventListener('submit', (e) => {
     headers: {
       'Content-Type': 'application/json',
     },
+  }).then((result) => {
+    if (result.status === 200) {
+      window.location.replace('/views/users')
+    } else {
+      console.log(result)
+    }
   })
-    .then((result) => result.json())
-    .then((json) => console.log(json))
 })

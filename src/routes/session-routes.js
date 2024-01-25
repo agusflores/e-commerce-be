@@ -35,7 +35,7 @@ router.post(
   }
 )
 
-router.post('/resetPassword', async (req, res) => {
+router.post('/reset-password', async (req, res) => {
   const { email, password } = req.body
   if (!email || !password) {
     return res.status(400).send({
@@ -55,7 +55,6 @@ router.post('/resetPassword', async (req, res) => {
     { _id: user._id },
     { $set: { password: newHashPassword } }
   )
-
   return res.status(200).send({ status: 'ok', message: 'password updated' })
 })
 

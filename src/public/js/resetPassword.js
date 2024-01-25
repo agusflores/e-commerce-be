@@ -7,7 +7,7 @@ form.addEventListener('submit', (e) => {
   const obj = {}
   data.forEach((value, key) => (obj[key] = value))
 
-  fetch('/api/users/resetPassword', {
+  fetch('/api/users/reset-password', {
     method: 'POST',
     body: JSON.stringify(obj),
     headers: {
@@ -16,7 +16,7 @@ form.addEventListener('submit', (e) => {
   }).then((result) => {
     console.log(result)
     if (result.status === 200) {
-      console.log('Contraseña restaurada')
+      window.location.replace('/views/users')
     } else {
       console.log('Error al restaurar contraseña')
     }
