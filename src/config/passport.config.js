@@ -43,10 +43,10 @@ const inicializePassport = () => {
         try {
           const user = await userModel.findOne({ email: username })
           if (!user) {
-            return done(null, false)
+            return done(null, false, { message: 'Usuario no encontrado' })
           }
           if (!validatePassword(password, user)) {
-            return done(null, false)
+            return done(null, false, { message: 'La contraseña es incorrecta' })
           }
           return done(null, user)
         } catch (err) {

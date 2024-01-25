@@ -18,7 +18,10 @@ router.post(
 
 router.post(
   '/login',
-  passport.authenticate('login', { failureRedirect: '/views/users/login' }),
+  passport.authenticate('login', {
+    successRedirect: '/views/home',
+    failureRedirect: '/login',
+  }),
   async (req, res) => {
     if (!req.user) {
       return res.status(400).send({
