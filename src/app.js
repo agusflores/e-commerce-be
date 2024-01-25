@@ -58,7 +58,7 @@ app.use(express.static(`${__dirname}/public`))
 app.get('/', (req, res) => {
   req.session.user = 'Active Session'
   console.log(req.session.user)
-  res.redirect('/views/home')
+  res.redirect('/views/users/login')
 })
 
 const socketServer = new Server(httpServer)

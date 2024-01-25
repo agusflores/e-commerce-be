@@ -6,6 +6,9 @@ form.addEventListener('submit', (e) => {
   const data = new FormData(form)
   const obj = {}
   data.forEach((value, key) => (obj[key] = value))
+  if (obj.email === '' || obj.password === '') {
+    return alert('Datos incompletos')
+  }
 
   fetch('/api/users/login', {
     method: 'POST',
