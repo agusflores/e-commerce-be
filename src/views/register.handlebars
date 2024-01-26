@@ -1,24 +1,99 @@
-<div>
-  <h1>Registro</h1>
-  <form id='registerForm'>
-
-    <label>Nombre</label>
-    <input name='firstName' />
-    <br />
-    <label>Apellido</label>
-    <input name='lastName' />
-    <br />
-    <label>Email</label>
-    <input name='email' />
-    <br />
-    <label>Edad</label>
-    <input name='age' />
-    <br />
-    <label>Contraseña</label>
-    <input type='password' name='password' />
-
-    <input type='submit' />
-  </form>
-  <p>¿Ya tienes una cuenta? <a href='/views/users/login'>Ingresa aquí</a></p>
+<div class='flex items-center justify-center h-screen bg-gray-200'>
+  <div class='w-full max-w-xs'>
+    <form
+      class='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'
+      id='registerForm'
+    >
+      <div class='mb-2'>
+        <label
+          class='block text-gray-700 text-sm font-bold mb-2'
+          for='firstName'
+        >
+          First Name
+        </label>
+        <input
+          class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+          id='firstName'
+          name='firstName'
+          type='text'
+          placeholder='First Name'
+          required
+        />
+      </div>
+      <div class='mb-2'>
+        <label class='block text-gray-700 text-sm font-bold mb-2' for='email'>
+          Last Name
+        </label>
+        <input
+          class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+          id='lastName'
+          name='lastName'
+          type='text'
+          placeholder='Last Name'
+          required
+        />
+      </div>
+      <div class='mb-2'>
+        <label class='block text-gray-700 text-sm font-bold mb-2' for='age'>
+          Age
+        </label>
+        <input
+          class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+          id='age'
+          name='age'
+          type='number'
+          placeholder='Age'
+          required
+        />
+      </div>
+      <div class='mb-2'>
+        <label class='block text-gray-700 text-sm font-bold mb-2' for='email'>
+          Email
+        </label>
+        <input
+          class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+          id='email'
+          name='email'
+          type='email'
+          placeholder='Email'
+          required
+        />
+      </div>
+      <div class='mb-2'>
+        <label
+          class='block text-gray-700 text-sm font-bold mb-2'
+          for='password'
+        >
+          Password
+        </label>
+        <input
+          class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+          id='password'
+          name='password'
+          type='password'
+          placeholder='**********'
+          required
+        />
+      </div>
+      <p
+        id='error-while-create-user'
+        class='text-red-500 italic hidden w-full text-center mb-2'
+      >Error creating user.</p>
+      <div>
+        <button
+          class='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+          type='submit'
+        >
+          Register
+        </button>
+      </div>
+      <div class='mt-5'>
+        <p class='text-gray-300 text-center'>Are you already member?
+          <a href='/views/users/login'>
+            <small class='text-gray-400 underline'>Log in here</small></a>
+        </p>
+      </div>
+    </form>
+  </div>
 </div>
 <script type='module' src='/js/register.js'></script>
