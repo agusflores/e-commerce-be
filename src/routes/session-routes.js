@@ -40,7 +40,7 @@ router.post(
       age: req.user.age,
     }
 
-    return resstatus(200).redirect('/views/users')
+    return res.status(200).redirect('/views/users')
   }
 )
 
