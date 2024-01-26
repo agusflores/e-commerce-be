@@ -8,21 +8,22 @@ const router = new Router()
 router.post(
   '/register',
   passport.authenticate('register', {
-    successRedirect: '/views/home',
     failureRedirect: '/register',
   }),
   async (req, res) => {
-    return res.send({
-      status: 'success',
-      message: 'User registered successfully',
-    })
+    req.session.user = {
+      fullName: `${req.user.firstName} ${req.user.lastName}`,
+      email: req.user.email,
+      age: req.user.age,
+    }
+
+    return res.status(200).redirect('/views/users')
   }
 )
 
 router.post(
   '/login',
   passport.authenticate('login', {
-    successRedirect: '/views/home',
     failureRedirect: '/login',
   }),
   async (req, res) => {
@@ -32,28 +33,24 @@ router.post(
         error: 'Datos incorrectos',
       })
     }
+
     req.session.user = {
       fullName: `${req.user.firstName} ${req.user.lastName}`,
       email: req.user.email,
       age: req.user.age,
     }
-    return res.send({ status: 'success', payload: req.session.user })
+
+    return resstatus(200).redirect('/views/users')
   }
 )
 
 router.post('/reset-password', async (req, res) => {
   const { email, password } = req.body
-  if (!email || !password) {
-    return res.status(400).send({
-      status: 'Error',
-      error: 'Datos incompletos',
-    })
-  }
 
   const user = await userModel.findOne({ email })
 
   if (!user) {
-    return res.status(400).send({ status: 'error', error: 'user doesnt exist' })
+    return res.status(400).send({ status: 'error', error: 'User doesnt exist' })
   }
 
   const newHashPassword = createHash(password)
@@ -61,7 +58,14 @@ router.post('/reset-password', async (req, res) => {
     { _id: user._id },
     { $set: { password: newHashPassword } }
   )
-  return res.status(200).send({ status: 'ok', message: 'password updated' })
+
+  req.session.user = {
+    fullName: `${req.user.firstName} ${req.user.lastName}`,
+    email: req.user.email,
+    age: req.user.age,
+  }
+
+  return res.status(200).redirect('/views/users')
 })
 
 router.get(
@@ -74,7 +78,6 @@ router.get(
   '/githubcallback',
   passport.authenticate('github', { scope: ['user:email'], sesion: false }),
   async (req, res) => {
-    console.log(req.user)
     res.redirect('/views/home')
   }
 )

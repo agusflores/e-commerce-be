@@ -15,7 +15,7 @@ const inicializePassport = () => {
       async (req, username, password, done) => {
         const { firstName, lastName, age, email } = req.body
         try {
-          let user = await userModel.findOne({ email: username })
+          let user = await userModel.findOne({ email: email })
           if (user) {
             return done(null, false)
           }

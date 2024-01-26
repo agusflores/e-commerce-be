@@ -43,13 +43,17 @@ function validateEmail(email) {
 }
 
 emailInput.addEventListener('focus', () => {
-  emailInput.value = ''
-  wrongEmail.classList.add('hidden')
+  if (emailInput.classList.contains('border-red-500')) {
+    emailInput.value = ''
+    wrongEmail.classList.add('hidden')
+  }
 })
 
 passwordInput.addEventListener('focus', () => {
-  passwordInput.value = ''
-  wrongPassword.classList.add('hidden')
+  if (passwordInput.classList.contains('border-red-500')) {
+    passwordInput.value = ''
+    wrongPassword.classList.add('hidden')
+  }
 })
 
 emailInput.addEventListener('input', () => {
