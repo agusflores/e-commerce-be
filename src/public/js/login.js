@@ -12,15 +12,9 @@ form.addEventListener('submit', (e) => {
   const obj = {}
   data.forEach((value, key) => (obj[key] = value))
 
-  if (obj.email === '' || !validateEmail(obj.email)) {
+  if (!validateEmail(obj.email)) {
     emailInput.classList.add('border-red-500')
     wrongEmail.classList.remove('hidden')
-    hasError = true
-  }
-
-  if (obj.password === '') {
-    passwordInput.classList.add('border-red-500')
-    wrongPassword.classList.remove('hidden')
     hasError = true
   }
 
