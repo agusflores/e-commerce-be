@@ -13,6 +13,7 @@ import MongoStore from 'connect-mongo'
 import { userRouter } from './routes/session-routes.js'
 import inicializePassport from './config/passport.config.js'
 import passport from 'passport'
+import { options } from './config/options.js'
 
 const PORT = 8080
 const app = express()
