@@ -1,104 +1,78 @@
+import { productDao } from '../dao/index.js'
 import productModel from '../dao/models/product.model.js'
-import { randomUUID } from 'crypto'
 
 class ProductController {
   static getProducts = async (req, res) => {
-    let { limit = 10, page = 1, sort, category, status } = req.query
-    const queryOptions = {}
+    try {
+      let { limit = 10, page = 1, sort, category, status } = req.query
+      const products = productDao.getProducts(
+        limit,
+        page,
+        sort,
+        category,
+        status
+      )
 
-    if (category) {
-      queryOptions.category = category
+      res.json({
+        status: 'success',
+        message: products,
+      })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
     }
-
-    if (status) {
-      if (status === 'available') {
-        queryOptions.stock = { $gt: 0 }
-      } else {
-        queryOptions.stock = { $eq: 0 }
-      }
-    }
-
-    const products = await productModel.paginate(queryOptions, {
-      limit: limit,
-      lean: true,
-      page: page,
-      sort: sort
-        ? { price: sort === 'desc' ? -1 : sort === 'asc' ? 1 : 0 }
-        : undefined,
-    })
-    res.json({
-      status: 'success',
-      message: products,
-    })
   }
 
   static getProductById = async (req, res) => {
-    const id = req.params.id
-
-    const result = await productModel.find({ _id: id })
-    res.json({
-      status: 'success',
-      message: result,
-    })
+    try {
+      const id = req.params.id
+      const product = await productDao.getProductById(id)
+      return res.json({
+        status: 'success',
+        message: product,
+      })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
+    }
   }
 
   static createProduct = async (req, res) => {
-    const defaultStatus = true
-    const newProduct = req.body
-    newProduct.id = randomUUID()
-    if (!isValidProduct(newProduct)) {
-      res.status(400).send({ status: 'error', message: 'Missing fields' })
-    } else {
-      if (newProduct.status === undefined) {
-        newProduct.status = defaultStatus
-      }
-      const result = await productModel.create(newProduct)
-      res.json({
+    try {
+      const product = req.body
+      const createdProduct = await productDao.createProduct(product)
+      return res.json({
         status: 'success',
-        message: result,
+        message: createdProduct,
       })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
     }
   }
 
   static updateProductById = async (req, res) => {
-    const id = req.params.id
-    const newProduct = req.body
-    if (!isValidProduct(newProduct)) {
-      res.status(400).send({ status: 'error', message: 'Missing fields' })
-    } else {
-      const result = await productModel.updateOne(
-        { _id: id },
-        { $set: newProduct }
-      )
+    try {
+      const id = req.params.id
+      const newProduct = req.body
+      const updatedProduct = await productDao.updateProductById(id, newProduct)
       res.json({
         status: 'success',
-        message: result,
+        message: updatedProduct,
       })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
     }
   }
 
   static deleteProductById = async (req, res) => {
-    const id = req.params.id
-    const result = await productModel.deleteOne({ _id: id })
-    res.json({
-      status: 'success',
-      message: result,
-    })
-  }
-}
-
-function isValidProduct(product) {
-  if (
-    product.title === undefined ||
-    product.description === undefined ||
-    product.code === undefined ||
-    product.price === undefined ||
-    product.stock === undefined ||
-    product.category === undefined
-  ) {
-    return false
-  } else {
-    return true
+    try {
+      const id = req.params.id
+      const result = await productDao.deleteProductById(id)
+      res.json({
+        status: 'success',
+        message: result,
+      })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
+    }
   }
 }
 
