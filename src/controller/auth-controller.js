@@ -1,13 +1,11 @@
+import { UserDTO } from '../dto/user/user-dto.js'
 import userModel from '../models/user.model.js'
 import { createHash, validatePassword } from '../utils.js'
 
 class AuthController {
   static register = async (req, res) => {
-    req.session.user = {
-      fullName: `${req.user.firstName} ${req.user.lastName}`,
-      email: req.user.email,
-      age: req.user.age,
-    }
+    const user = req.body
+    req.session.user = new UserDTO(user)
 
     return res.status(200).redirect('/views/users')
   }
@@ -20,11 +18,7 @@ class AuthController {
       })
     }
 
-    req.session.user = {
-      fullName: `${req.user.firstName} ${req.user.lastName}`,
-      email: req.user.email,
-      age: req.user.age,
-    }
+    req.session.user = new UserDTO(req.user)
 
     return res.status(200).redirect('/views/users')
   }
@@ -46,11 +40,7 @@ class AuthController {
       { $set: { password: newHashPassword } }
     )
 
-    req.session.user = {
-      fullName: `${req.user.firstName} ${req.user.lastName}`,
-      email: req.user.email,
-      age: req.user.age,
-    }
+    req.session.user = new UserDTO(user)
 
     return res.status(200).redirect('/views/users')
   }
