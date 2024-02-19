@@ -6,14 +6,13 @@ import viewsRouter from './routes/views-router.js'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
 import mongoose from 'mongoose'
-import messageModel from './dao/models/message.model.js'
-import productModel from './dao/models/product.model.js'
+import messageModel from './models/message.model.js'
+import productModel from './models/product.model.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import { userRouter } from './routes/session-routes.js'
 import inicializePassport from './config/passport.config.js'
 import passport from 'passport'
-import { options } from './config/options.js'
 
 const PORT = 8080
 const app = express()

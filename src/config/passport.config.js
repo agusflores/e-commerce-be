@@ -2,7 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 
 import { createHash, validatePassword } from '../utils.js'
-import userModel from '../dao/models/user.model.js'
+import userModel from '../models/user.model.js'
 import GitHubStrategy from 'passport-github2'
 import { transporter } from './gmail.js'
 import { welcomeEmailTemplate } from '../templates/mail/welcome-email.js'

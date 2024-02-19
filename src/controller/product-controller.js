@@ -1,5 +1,5 @@
 import { productDao } from '../dao/index.js'
-import productModel from '../dao/models/product.model.js'
+import productModel from '../models/product.model.js'
 
 class ProductController {
   static getProducts = async (req, res) => {
