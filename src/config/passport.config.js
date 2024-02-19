@@ -5,7 +5,7 @@ import { createHash, validatePassword } from '../utils.js'
 import userModel from '../dao/models/user.model.js'
 import GitHubStrategy from 'passport-github2'
 import { transporter } from './gmail.js'
-import fs from 'fs'
+import { welcomeEmailTemplate } from '../templates/mail/welcome-email.js'
 
 const LocalStrategy = local.Strategy
 
@@ -32,7 +32,7 @@ const inicializePassport = () => {
           const mailOptions = {
             to: email,
             subject: 'Bienvenido a E-commerce',
-            template: 'welcome-email.html',
+            html: welcomeEmailTemplate,
           }
 
           transporter.sendMail(mailOptions, (err, res) => {

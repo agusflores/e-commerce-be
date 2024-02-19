@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+export const welcomeEmailTemplate = `<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -23,13 +23,6 @@
           Welcome to our E-commerce. We're really excited to have you on board.
         </p>
 
-        <button
-          id="redirectButton"
-          class="px-6 py-2 mt-4 text-sm font-medium tracking-wider text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-        >
-          Go to our website!
-        </button>
-
         <p class="mt-8 text-gray-600 dark:text-gray-300">
           Thanks, <br />
           E-commerce Backend Team
@@ -37,5 +30,4 @@
       </main>
     </section>
   </body>
-</html>
-<script type="module" src="../public/js/email.js"></script>
+</html>`
