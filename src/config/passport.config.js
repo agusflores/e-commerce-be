@@ -4,6 +4,8 @@ import local from 'passport-local'
 import { createHash, validatePassword } from '../utils.js'
 import userModel from '../dao/models/user.model.js'
 import GitHubStrategy from 'passport-github2'
+import { transporter } from './gmail.js'
+import fs from 'fs'
 
 const LocalStrategy = local.Strategy
 
@@ -26,7 +28,23 @@ const inicializePassport = () => {
             email,
             password: createHash(password),
           }
+
+          const mailOptions = {
+            to: email,
+            subject: 'Bienvenido a E-commerce',
+            template: 'welcome-email.html',
+          }
+
+          transporter.sendMail(mailOptions, (err, res) => {
+            if (err) {
+              console.log(err)
+              return
+            } else {
+            }
+          })
+
           const result = await userModel.create(newUser)
+
           return done(null, result)
         } catch (err) {
           return done(err)
