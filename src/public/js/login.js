@@ -5,6 +5,8 @@ const wrongPassword = document.getElementById('wrong-password-text')
 const wrongEmail = document.getElementById('wrong-email-text')
 const userNotFound = document.getElementById('user-not-found-text')
 
+let resultOk = false
+
 form.addEventListener('submit', (e) => {
   e.preventDefault()
   let hasError = false
@@ -26,15 +28,21 @@ form.addEventListener('submit', (e) => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((result) => {
-    if (result.status === 200) {
-      window.location.replace('/views/users')
-    } else if (result.status === 404) {
-      userNotFound.classList.remove('hidden')
-    } else {
-      console.log(result)
-    }
   })
+    .then((result) => {
+      if (result.status === 200) {
+        resultOk = true
+        return result.text()
+      } else {
+        userNotFound.classList.remove('hidden')
+      }
+    })
+    .then((token) => {
+      if (resultOk) {
+        localStorage.setItem('token', token)
+        window.location.replace('/views/users')
+      }
+    })
 })
 
 function validateEmail(email) {

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import passport from 'passport'
 import { AuthController } from '../controller/auth-controller.js'
+import { authToken } from '../utils.js'
 
 const router = new Router()
 
@@ -19,6 +20,12 @@ router.post(
   }),
   AuthController.login
 )
+
+router.post('/logout', AuthController.logout)
+
+router.post('/', authToken, (req, res) => {
+  res.send({ status: 'ok', user: req.user })
+})
 
 router.post('/reset-password', AuthController.resetPassword)
 

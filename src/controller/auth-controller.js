@@ -1,13 +1,15 @@
 import { UserDTO } from '../dto/user/user-dto.js'
 import userModel from '../models/user.model.js'
-import { createHash, validatePassword } from '../utils.js'
+import { createHash, generateToken } from '../utils.js'
 
 class AuthController {
   static register = async (req, res) => {
     const user = req.body
     req.session.user = new UserDTO(user)
 
-    return res.status(200).redirect('/views/users')
+    const accessToken = generateToken()
+
+    return res.status(200).send(accessToken)
   }
 
   static login = async (req, res) => {
@@ -20,7 +22,8 @@ class AuthController {
 
     req.session.user = new UserDTO(req.user)
 
-    return res.status(200).redirect('/views/users')
+    const accessToken = generateToken()
+    return res.status(200).send(accessToken)
   }
 
   static resetPassword = async (req, res) => {
@@ -31,7 +34,7 @@ class AuthController {
     if (!user) {
       return res
         .status(400)
-        .send({ status: 'error', error: 'User doesnt exist' })
+        .send({ status: 'error', error: 'User does not exist' })
     }
 
     const newHashPassword = createHash(password)
@@ -43,6 +46,11 @@ class AuthController {
     req.session.user = new UserDTO(user)
 
     return res.status(200).redirect('/views/users')
+  }
+
+  static logout = async (req, res) => {
+    req.session.destroy()
+    return res.status(200).send({ status: 'ok' })
   }
 }
 

@@ -3,6 +3,8 @@ const errorWhileCreatingUser = document.getElementById(
   'error-while-create-user'
 )
 
+let resultOk = false
+
 form.addEventListener('submit', (e) => {
   e.preventDefault()
   const data = new FormData(form)
@@ -15,13 +17,19 @@ form.addEventListener('submit', (e) => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((result) => {
-    if (result.status === 200) {
-      window.location.replace('/views/users')
-    } else if (result.status === 404) {
-      errorWhileCreatingUser.classList.remove('hidden')
-    } else {
-      console.log(result)
-    }
   })
+    .then((result) => {
+      if (result.status === 200) {
+        resultOk = true
+        return result.text()
+      } else {
+        errorWhileCreatingUser.classList.remove('hidden')
+      }
+    })
+    .then((token) => {
+      if (resultOk) {
+        localStorage.setItem('token', token)
+        window.location.replace('/views/users')
+      }
+    })
 })
