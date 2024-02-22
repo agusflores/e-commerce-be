@@ -20,7 +20,7 @@ export const validateUserRole = (req, res, next) => {
   const user = req.session.user
   if (!user) {
     return res.status(401).send({ status: 'error', error: 'Unhaunthorized' })
-  } else if (user.role !== 'admin') {
+  } else if (user.role !== 'role') {
     return res.status(403).send({ status: 'error', error: 'Forbidden' })
   } else {
     next()
