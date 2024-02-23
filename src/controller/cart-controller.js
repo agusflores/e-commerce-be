@@ -87,6 +87,21 @@ class CartController {
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
+
+  static doAPurchase = async (req, res) => {
+    try {
+      const cartId = req.params.cid
+      const cart = await cartDao.getCartById(cartId)
+
+      
+      return res.json({
+        status: 'success',
+        message: cart,
+      })
+    } catch (error) {
+      return res.status(404).send({ status: 'error', message: error.message })
+    }
+  }
 }
 
 export { CartController }

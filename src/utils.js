@@ -8,9 +8,14 @@ const PRIVATE_KEY = 'jwt-private-key'
 export const validateAdminRole = (req, res, next) => {
   const user = req.session.user
   if (!user) {
-    return res.status(401).send({ status: 'error', error: 'Unhaunthorized' })
+    return res
+      .status(401)
+      .send({ status: 'error', error: 'User is not logged' })
   } else if (user.role !== 'admin') {
-    return res.status(403).send({ status: 'error', error: 'Forbidden' })
+    return res.status(403).send({
+      status: 'error',
+      error: 'User is not allowed to perform this action',
+    })
   } else {
     next()
   }
@@ -19,9 +24,14 @@ export const validateAdminRole = (req, res, next) => {
 export const validateUserRole = (req, res, next) => {
   const user = req.session.user
   if (!user) {
-    return res.status(401).send({ status: 'error', error: 'Unhaunthorized' })
+    return res
+      .status(401)
+      .send({ status: 'error', error: 'User is not logged' })
   } else if (user.role !== 'user') {
-    return res.status(403).send({ status: 'error', error: 'Forbidden' })
+    return res.status(403).send({
+      status: 'error',
+      error: 'User is not allowed to perform this action',
+    })
   } else {
     next()
   }
