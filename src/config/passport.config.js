@@ -6,6 +6,7 @@ import userModel from '../models/user.model.js'
 import GitHubStrategy from 'passport-github2'
 import { transporter } from './gmail.js'
 import { welcomeEmailTemplate } from '../templates/mail/welcome-email.js'
+import { cartDao } from '../dao/index.js'
 
 const LocalStrategy = local.Strategy
 
@@ -21,12 +22,15 @@ const inicializePassport = () => {
           if (user) {
             return done(null, false)
           }
+          const cart = await cartDao.createCart()
+          console.log(cart)
           const newUser = {
             firstName,
             lastName,
             age,
             email,
             password: createHash(password),
+            cart: cart,
           }
 
           const mailOptions = {
