@@ -1,4 +1,4 @@
-import { cartDao, userDao } from '../dao/index.js'
+import { cartDao, ticketDao, userDao } from '../dao/index.js'
 import { PurchaseProductDTO } from '../dto/product/purchase-product-dto.js'
 
 class CartController {
@@ -101,11 +101,11 @@ class CartController {
           .send({ status: 'error', message: 'Cart not found' })
       }
 
-      if (cart.products.length === 0) {
-        return res
-          .status(404)
-          .send({ status: 'error', message: 'Cart is empty' })
-      }
+      // if (cart.products.length === 0) {
+      //   return res
+      //     .status(404)
+      //     .send({ status: 'error', message: 'Cart is empty' })
+      // }
 
       cart.products.forEach((elem) => {
         if (elem.product.stock >= elem.quantity) {
@@ -129,6 +129,7 @@ class CartController {
         amount: purchasePrice,
         purchaser: user.email,
       }
+      await ticketDao.createTicket(ticket)
 
       return res.json({
         status: 'success',
