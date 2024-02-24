@@ -101,11 +101,11 @@ class CartController {
           .send({ status: 'error', message: 'Cart not found' })
       }
 
-      // if (cart.products.length === 0) {
-      //   return res
-      //     .status(404)
-      //     .send({ status: 'error', message: 'Cart is empty' })
-      // }
+      if (cart.products.length === 0) {
+        return res
+          .status(404)
+          .send({ status: 'error', message: 'Cart is empty' })
+      }
 
       cart.products.forEach((elem) => {
         if (elem.product.stock >= elem.quantity) {
