@@ -2,6 +2,35 @@ import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import { Faker, en } from '@faker-js/faker'
+
+export const customFaker = new Faker({ locale: [en] })
+
+const {
+  commerce,
+  image,
+  database,
+  string,
+  internet,
+  person,
+  phone,
+  datatype,
+  lorem,
+} = customFaker
+
+export const generateFakeProduct = () => {
+  return {
+    id: database.mongodbObjectId(),
+    title: commerce.productName(),
+    description: commerce.productDescription(),
+    code: string.alphanumeric(10),
+    price: parseFloat(commerce.price()),
+    stock: parseInt(string.numeric(2)),
+    thumbnail: internet.email(),
+    category: commerce.department(),
+    status: datatype.boolean(),
+  }
+}
 
 const PRIVATE_KEY = 'jwt-private-key'
 

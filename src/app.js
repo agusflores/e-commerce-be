@@ -13,6 +13,7 @@ import MongoStore from 'connect-mongo'
 import { userRouter } from './routes/session-routes.js'
 import inicializePassport from './config/passport.config.js'
 import passport from 'passport'
+import { mockRouter } from './routes/mock-routes.js'
 
 const PORT = 8080
 const app = express()
@@ -49,6 +50,7 @@ app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/views', viewsRouter)
 app.use('/api/users', userRouter)
+app.use("/mock", mockRouter);
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
