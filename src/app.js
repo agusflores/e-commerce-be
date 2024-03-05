@@ -62,6 +62,16 @@ app.get('/', (req, res) => {
   res.redirect('/views/users/login')
 })
 
+app.get('/logger-test', async (req, res) => {
+  req.logger.debug('This is a debug message')
+  req.logger.http('This is a http message')
+  req.logger.info('This is an info message')
+  req.logger.warn('This is a warning message')
+  req.logger.error('This is an error message')
+  req.logger.fatal('This is a fatal message')
+  res.status(200).json({ status: 'success', message: 'Check the logs' })
+})
+
 const socketServer = new Server(httpServer)
 const products = await productModel.find()
 
