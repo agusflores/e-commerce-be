@@ -14,13 +14,11 @@ import { userRouter } from './routes/session-routes.js'
 import inicializePassport from './config/passport.config.js'
 import passport from 'passport'
 import { mockRouter } from './routes/mock-routes.js'
-
+import { addLogger } from './config/logger.js'
 const PORT = 8080
 const app = express()
 const MONGO =
   'mongodb+srv://agustinflores1505:tUreQzQk6yGuuN55@cluster0.2gugbsj.mongodb.net/e-commerce?retryWrites=true&w=majority'
-
-const connection = mongoose.connect(MONGO)
 
 app.use(
   session({
@@ -34,6 +32,9 @@ app.use(
 )
 
 inicializePassport()
+
+app.use(addLogger)
+
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -50,7 +51,7 @@ app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/views', viewsRouter)
 app.use('/api/users', userRouter)
-app.use("/mock", mockRouter);
+app.use('/mock', mockRouter)
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
@@ -58,8 +59,6 @@ app.set('views', `${__dirname}/views`)
 app.use(express.static(`${__dirname}/public`))
 
 app.get('/', (req, res) => {
-  req.session.user = 'Active Session'
-  console.log(req.session.user)
   res.redirect('/views/users/login')
 })
 

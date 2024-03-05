@@ -1,5 +1,4 @@
 import { productDao } from '../dao/index.js'
-import productModel from '../models/product.model.js'
 
 class ProductController {
   static getProducts = async (req, res) => {
@@ -18,6 +17,7 @@ class ProductController {
         message: products,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -31,6 +31,7 @@ class ProductController {
         message: product,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -44,6 +45,7 @@ class ProductController {
         message: createdProduct,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -58,6 +60,7 @@ class ProductController {
         message: updatedProduct,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -71,6 +74,7 @@ class ProductController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }

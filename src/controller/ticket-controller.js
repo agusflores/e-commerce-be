@@ -10,6 +10,7 @@ class TicketController {
         message: createdTicket,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }

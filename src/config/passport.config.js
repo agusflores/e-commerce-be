@@ -23,7 +23,6 @@ const inicializePassport = () => {
             return done(null, false)
           }
           const cart = await cartDao.createCart()
-          console.log(cart)
           const newUser = {
             firstName,
             lastName,

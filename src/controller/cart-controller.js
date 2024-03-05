@@ -11,6 +11,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -24,6 +25,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -37,6 +39,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -52,6 +55,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -66,6 +70,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -85,6 +90,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
@@ -121,7 +127,6 @@ class CartController {
         purchasePrice += totalPerElement
       })
       const user = await userDao.getUserByCart(cart)
-      console.log(user)
 
       const ticket = {
         code: Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000,
@@ -136,6 +141,7 @@ class CartController {
         message: ticket,
       })
     } catch (error) {
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', message: error.message })
     }
   }
