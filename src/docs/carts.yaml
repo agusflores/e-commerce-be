@@ -1,0 +1,30 @@
+paths:
+  /api/carts/{id}:
+    get:
+      summary: Obtiene el carrito con el id pasado por parametro
+      tags:
+        - Carts
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id del carrito
+          schema:
+            type: string
+   /api/carts/:
+    post:
+      summary: Crea un nuevo carrito
+      tags:
+        - Carts
+    /api/carts/{id}:
+    delete:
+      summary: Elimina el carrito con el id pasado por paremetro
+      tags:
+        - Carts
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id del carrito
+          schema:
+            type: string

@@ -1,0 +1,56 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+  /api/products/{id}:
+    get:
+      summary: Obtiene el producto con el id pasado por parametro
+      tags:
+        - Products
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id del producto
+          schema:
+            type: string
+   /api/products/:
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Products
+    /api/products/{id}:
+    put:
+      summary: Actualiza un producto
+      tags:
+        - Products
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id del producto
+          schema:
+            type: string
+        - name: body
+          in: body
+          required: true
+          description: Informacion del producto
+          schema:
+            $ref: '#/components/schemas/Product'
+    /api/products/{id}:
+    delete:
+      summary: Elimina el producto con el id pasado por paremetro
+      tags:
+        - Products
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id del producto
+          schema:
+            type: string
+
+
+      

@@ -15,6 +15,9 @@ import inicializePassport from './config/passport.config.js'
 import passport from 'passport'
 import { mockRouter } from './routes/mock-routes.js'
 import { addLogger } from './config/logger.js'
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
+
 const PORT = 8080
 const app = express()
 const MONGO =
@@ -30,6 +33,20 @@ app.use(
     saveUninitialized: false,
   })
 )
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.1',
+    info: {
+      title: 'Documentacion de E-commerce BE',
+      description: 'Documentacion de la API de E-commerce BE con Swagger',
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yalm`],
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 inicializePassport()
 
