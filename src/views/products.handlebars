@@ -1,47 +1,65 @@
-<body>
-
+<nav>
+  <div class='flex justify-between bg-gray-800 p-4 text-white'>
+    <div>
+      <a href='/views/users'>Perfil</a>
+    </div>
+    <div>
+      <a href='/views/products'>Productos</a>
+    </div>
+    <div>
+      <a href='/views/cart'>
+        <i class='fas fa-shopping-cart'></i>
+        Carrito
+      </a>
+    </div>
+  </div>
+</nav>
+<div class='p-5 m-3 bg-gray-800 rounded h-[800px]'>
+  <h1 class='text-center text-xl text-white font-bold'>Productos</h1>
   <div>
-    <h1>
-      Products
-    </h1>
-
-    <ul>
+    <ul class='flex justify-center gap-2 mt-2'>
       {{#each products.docs}}
-        <li>
-          {{this.title}}
-          {{this.description}}
-          {{this.code}}
-          {{this.price}}
-          {{this.stock}}
-          {{this.category}}
-          {{this.thumbnail}}
-          <label for='cid'>Carrito ID</label>
-          <input type='text' id='cid' name='cid' required />
-          <label for='cid'>Cantidad a agregar</label>
+        <li
+          class='flex items-start justify-center flex-col p-5 bg-gray-300 m-2 rounded font-semibold'
+        >
+          <p>Nombre: {{this.title}}</p>
+          <p>Descripción: {{this.description}}</p>
+          <p>Código: {{this.code}}</p>
+          <p>Precio: ${{this.price}}</p>
+          <p>Stock disponible: {{this.stock}}</p>
+          <p>Categoria: {{this.category}}</p>
+          <label>Cantidad a agregar</label>
           <input
-            type='text'
-            id='quantity-product'
+            type='number'
+            class='quantity-product'
             name='quantity-product'
             required
           />
-          <input type='hidden' id='pid' name='pid' value='{{this._id}}' />
-          <button id='submitButton' type='submit'>agregar al carrito</button>
+          <input type='hidden' class='pid' name='pid' value='{{this._id}}' />
+          <button
+            type='button'
+            class='add-to-cart-btn mt-2 px-3 py-2 bg-gray-400 rounded cursor-pointer hover:bg-gray-700 hover:text-white'
+          >Agregar al carrito</button>
         </li>
       {{/each}}
     </ul>
 
-    <div>
-      ||
-      {{#if products.hasPrevPage}}
-        <a href='/views/products?page={{products.prevPage}}'>anterior</a>
-      {{/if}}
-      ||
-      <span>Pagina {{products.page}} de {{products.totalPages}}</span>
-      ||
-      {{#if products.hasNextPage}}
-        <a href='/views/products?page={{products.nextPage}}'>siguiente</a>
-      {{/if}}
-      ||
-    </div>
   </div>
-</body>
+
+  <div class='text-white'>
+    {{#if products.hasPrevPage}}
+      <a href='/views/products?page={{products.prevPage}}'><i
+          class='fa-solid fa-chevron-left'
+        ></i></a>
+    {{/if}}
+    ||
+    <span>Pagina {{products.page}} de {{products.totalPages}}</span>
+    ||
+    {{#if products.hasNextPage}}
+      <a href='/views/products?page={{products.nextPage}}'><i
+          class='fa-solid fa-chevron-right'
+        ></i></a>
+    {{/if}}
+  </div>
+</div>
+<script type='module' src='/js/products.js'></script>

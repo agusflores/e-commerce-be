@@ -7,7 +7,6 @@ logoutButton.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
   }).then((result) => {
-    console.log(result)
     if (result.status === 200) {
       localStorage.removeItem('token')
       window.location.replace('/views/users/login')

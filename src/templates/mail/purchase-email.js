@@ -1,4 +1,4 @@
-export const welcomeEmailTemplate = `<!DOCTYPE html>
+export const purchaseEmailTemplate = `<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -20,12 +20,12 @@ export const welcomeEmailTemplate = `<!DOCTYPE html>
         <h2 class="text-gray-700 dark:text-gray-200">Hi,</h2>
 
         <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
-          Bienvenido a nuestro E-Commerce. Estamos muy contentos de tenerte con nosotros.
+          Tu compra se ha realizado con exito! Muchas gracias por confiar en nosotros. Esperamos que vuelvas a visitarnos pronto.
         </p>
 
         <p class="mt-8 text-gray-600 dark:text-gray-300">
           Gracias, <br />
-          Equipo E-commerce Backend 
+         Equipo E-commerce Backend 
         </p>
       </main>
     </section>

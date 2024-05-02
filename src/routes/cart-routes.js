@@ -6,6 +6,8 @@ const router = Router()
 
 router.get('/:id', CartController.getCartById)
 
+router.get('/', CartController.getUsersCart)
+
 router.delete('/:id', CartController.deleteCartById)
 
 router.post('/', CartController.postCart)
@@ -20,6 +22,6 @@ router.delete('/:cid/products/:pid', CartController.removeProductsFromCart)
 
 router.put('/:cid/products/:pid', CartController.updateProductsFromCart)
 
-router.post('/:cid/purchase', CartController.doAPurchase)
+router.post('/purchase', CartController.doAPurchase)
 
 export default router

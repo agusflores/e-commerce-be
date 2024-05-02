@@ -5,25 +5,14 @@ import cartModel from '../models/cart.model.js'
 
 const router = new Router()
 
-router.get('/home', async (req, res) => {
-  const products = await productModel.find()
-  res.render('home', { products: products.map((p) => p.toJSON()) })
-})
-
-router.get('/realtimeproducts', async (req, res) => {
-  const products = await productModel.find()
-  res.render('realtimeproducts', { products })
-})
-
 router.get('/chat', async (req, res) => {
   const messages = await messageModel.find()
   res.render('chat', { messages })
 })
 
-router.get('/carts/:cid', async (req, res) => {
-  const cid = req.params.cid
-  const cart = await cartModel.findById(cid).populate('products.product')
-
+router.get('/cart', async (req, res) => {
+  const user = req.session.user
+  const cart = await cartModel.findById(user.cart).populate('products.product')
   if (!cart) {
     return res.status(404).send('Cart not found')
   }
@@ -32,7 +21,7 @@ router.get('/carts/:cid', async (req, res) => {
 })
 
 router.get('/products', async (req, res) => {
-  let { limit = 10, page = 1, sort, category, status } = req.query
+  let { limit = 3, page = 1, sort, category, status } = req.query
   const queryOptions = {}
 
   if (category) {

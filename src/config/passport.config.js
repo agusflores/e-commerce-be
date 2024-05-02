@@ -16,7 +16,7 @@ const inicializePassport = () => {
     new LocalStrategy(
       { passReqToCallback: true, usernameField: 'email' },
       async (req, username, password, done) => {
-        const { firstName, lastName, age, email } = req.body
+        const { firstName, lastName, age, email, role } = req.body
         try {
           let user = await userModel.findOne({ email: email })
           if (user) {

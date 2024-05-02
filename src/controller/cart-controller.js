@@ -1,7 +1,23 @@
 import { cartDao, ticketDao, userDao } from '../dao/index.js'
 import { PurchaseProductDTO } from '../dto/product/purchase-product-dto.js'
+import { transporter } from '../config/gmail.js'
+import { purchaseEmailTemplate } from '../templates/mail/purchase-email.js'
 
 class CartController {
+  static getUsersCart = async (req, res) => {
+    try {
+      console.log(req.session.user);
+      const result = req.session.user.cart
+      return res.status(200).json({
+        status: 'success',
+        cartId: result,
+      })
+    } catch (error) {
+      req.logger.error(error.message)
+      return res.status(404).send({ status: 'error', message: error.message })
+    }
+  }
+
   static getCartById = async (req, res) => {
     try {
       const id = req.params.id
@@ -97,7 +113,7 @@ class CartController {
 
   static doAPurchase = async (req, res) => {
     try {
-      const cartId = req.params.cid
+      const cartId = req.session.user.cart
       const cart = await cartDao.getCartById(cartId)
       let productsToPurchase = []
 
@@ -121,20 +137,28 @@ class CartController {
         }
       })
 
-      let purchasePrice = 0
-      productsToPurchase.forEach((elem) => {
-        let totalPerElement = elem.price * elem.quantity
-        purchasePrice += totalPerElement
-      })
       const user = await userDao.getUserByCart(cart)
 
       const ticket = {
         code: Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000,
         purchase_datetime: new Date(),
-        amount: purchasePrice,
+        amount: cart.total,
         purchaser: user.email,
       }
       await ticketDao.createTicket(ticket)
+
+      cart.products = []
+      cart.total = 0
+
+      await cartDao.updateCart(cartId, cart)
+
+      const mailOptions = {
+        to: user.email,
+        subject: 'Confirmacion de compra',
+        html: purchaseEmailTemplate,
+      }
+
+      transporter.sendMail(mailOptions, (err, res) => {})
 
       return res.json({
         status: 'success',

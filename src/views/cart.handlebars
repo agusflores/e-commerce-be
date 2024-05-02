@@ -1,23 +1,47 @@
-<div>
+<nav>
+  <div class='flex justify-between bg-gray-800 p-4 text-white'>
     <div>
-        <h1>Cart {{cart._id}}</h1>        
+      <a href='/views/users'>Perfil</a>
     </div>
+    <div>
+      <a href='/views/products'>Productos</a>
+    </div>
+    <div>
+      <a href='/views/cart'>
+        <i class='fas fa-shopping-cart'></i>
+        Carrito
+      </a>
+    </div>
+  </div>
+</nav>
+<div class='p-5 m-3 bg-gray-800 rounded h-[800px]'>
+  <h1 class='text-center text-xl text-white font-bold'>Carrito</h1>
 
-    <div>
-        <h2>Lista de productos </h2>
-        <ul>
-            {{#each cart.products}}
-            <li>
-                <p>title: {{this.product.title}}</p>
-                <p>price: {{this.product.price}}</p>
-                <p>thumbnail: {{this.product.thumbnail}}</p>
-                <p>code: {{this.product.code}}</p>
-                <p>description: {{this.product.description}}</p>
-                <p>stock: {{this.product.stock}}</p>
-                <p>category: {{this.product.category}}</p>
-                <p>id: {{this._id}}</p>
-                <p>quantity: {{quantity}}</p>
-            </li>
-            {{/each}}
-    </div>
+  <div>
+    <ul class='flex justify-center gap-2 mt-2'>
+      {{#each cart.products}}
+        <li
+          class='flex items-start justify-center flex-col p-5 bg-gray-300 m-2 rounded font-semibold'
+        >
+          <p>Nombre: {{this.product.title}}</p>
+          <p>Descripción: {{this.product.description}}</p>
+          <p>Código: {{this.product.code}}</p>
+          <p>Precio: {{this.product.price}}</p>
+          <p>Categoria: {{this.product.category}}</p>
+          <p>Cantidad: {{quantity}}</p>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class='flex justify-center items-center flex-col gap-2 mt-2'>
+    <p class='text-white text-lg font-semibold'>Total: ${{cart.total}}</p>
+    <button
+      id='checkout-btn'
+      type='button'
+      class='w-1/5 mt-2 px-3 py-2 bg-gray-400 rounded cursor-pointer hover:bg-gray-700 hover:text-white'
+    >
+      Comprar
+    </button>
+  </div>
 </div>
+<script type='module' src='/js/cart.js'></script>

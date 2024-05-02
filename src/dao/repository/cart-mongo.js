@@ -41,6 +41,15 @@ export class CartMongo {
     }
   }
 
+  async updateCart(cartId, cart) {
+    try {
+      const result = await cartModel.updateOne({ _id: cartId }, { $set: cart })
+      return result
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
   async addProductToCart(cartId, productId, quantity) {
     try {
       const cart = await cartModel.findOne({ _id: cartId })
@@ -64,12 +73,16 @@ export class CartMongo {
           product: product,
           quantity: quantity,
         })
+        cart.total = cart.total + product.price * quantity
       } else {
         const index = cart.products.findIndex((p) => {
           return p.product._id.toString() === product._id.toString()
         })
         cart.products[index].quantity += quantity
+        cart.total = cart.total + product.price * quantity
       }
+
+      await productModel.updateOne({ _id: productId }, { $set: product })
       const result = await cartModel.updateOne({ _id: cartId }, { $set: cart })
       return result
     } catch (error) {
