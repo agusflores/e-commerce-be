@@ -39,8 +39,10 @@ router.get(
   '/githubcallback',
   passport.authenticate('github', { scope: ['user:email'], sesion: false }),
   async (req, res) => {
-    res.redirect('/views/home')
+    res.redirect('/views/profile')
   }
 )
+
+router.get('/', AuthController.getUsers)
 
 export { router as userRouter }

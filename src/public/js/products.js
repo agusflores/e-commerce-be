@@ -24,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
           .then((response) => {
             if (!response.ok) {
-              throw new Error('Error al agregar el producto al carrito')
+              if (response.status === 403)
+                throw new Error(
+                  'El usuario no puede agregar productos al carrito'
+                )
+              else {
+                throw new Error(response.message)
+              }
             }
             return response.json()
           })
@@ -32,8 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Respuesta:', data)
           })
           .catch((error) => {
-            console.error('Error:', error)
-            alert('Error al agregar el producto al carrito')
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.message,
+            })
           })
       } catch (error) {
         console.error('Error al obtener el ID del carrito:', error)

@@ -56,7 +56,7 @@ router.get('/users/login', (req, res) => {
   res.render('login')
 })
 
-router.get('/users', (req, res) => {
+router.get('/profile', (req, res) => {
   res.render('profile', { user: req.session.user })
 })
 

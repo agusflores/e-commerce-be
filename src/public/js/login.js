@@ -40,7 +40,7 @@ form.addEventListener('submit', (e) => {
     .then((token) => {
       if (resultOk) {
         localStorage.setItem('token', token)
-        window.location.replace('/views/users')
+        window.location.replace('/views/profile')
       }
     })
 })

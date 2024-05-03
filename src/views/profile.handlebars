@@ -1,7 +1,7 @@
 <nav>
   <div class='flex justify-between bg-gray-800 p-4 text-white'>
     <div>
-      <a href='/views/users'>Perfil</a>
+      <a href='/views/profile'>Perfil</a>
     </div>
     <div>
       <a href='/views/products'>Productos</a>
@@ -22,11 +22,9 @@
     <p>Edad: {{user.age}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
-
   <button
     id='logout-button'
     class='mt-2 px-3 bg-gray-300 rounded cursor-pointer hover:bg-gray-700 hover:text-white'
   >Salir</button>
 </div>
-
 <script type='module' src='/js/logout.js'></script>

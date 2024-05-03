@@ -1,3 +1,15 @@
+export class CommonDataUserDTO {
+  constructor(user) {
+    this.fullName = user.firstName + ' ' + user.lastName
+    this.email = user.email
+    this.role = user.role
+  }
+
+  userToDTO(user) {
+    return new CommonDataUserDTO(user)
+  }
+}
+
 export class UserDTO {
   constructor(user) {
     this.firstName = user.firstName

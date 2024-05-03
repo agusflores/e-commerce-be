@@ -1,4 +1,4 @@
-export const purchaseEmailTemplate = `<!DOCTYPE html>
+export const purchaseEmailTemplate = (ticket) => `<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />

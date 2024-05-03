@@ -1,4 +1,4 @@
-import { UserDTO } from '../dto/user/user-dto.js'
+import { CommonDataUserDTO, UserDTO } from '../dto/user/user-dto.js'
 import userModel from '../models/user.model.js'
 import { createHash, generateToken } from '../utils.js'
 
@@ -45,12 +45,24 @@ class AuthController {
 
     req.session.user = new UserDTO(user)
 
-    return res.status(200).redirect('/views/users')
+    return res.status(200).redirect('/views/profile')
   }
 
   static logout = async (req, res) => {
     req.session.destroy()
     return res.status(200).send({ status: 'ok' })
+  }
+
+  static getUsers = async (req, res) => {
+    const users = await userModel.find()
+    const usersDTO = []
+
+    users.forEach((user) => {
+      const userDTO = new CommonDataUserDTO(user)
+      usersDTO.push(userDTO)
+    })
+
+    return usersDTO
   }
 }
 
