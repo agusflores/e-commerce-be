@@ -6,7 +6,6 @@ import { purchaseEmailTemplate } from '../templates/mail/purchase-email.js'
 class CartController {
   static getUsersCart = async (req, res) => {
     try {
-      console.log(req.session.user);
       const result = req.session.user.cart
       return res.status(200).json({
         status: 'success',
@@ -71,8 +70,8 @@ class CartController {
         message: result,
       })
     } catch (error) {
-      req.logger.error(error.message)
-      return res.status(404).send({ status: 'error', message: error.message })
+      // req.logger.error(error.message)
+      return res.status(404).send({ status: 'error', error: error })
     }
   }
 
@@ -155,7 +154,7 @@ class CartController {
       const mailOptions = {
         to: user.email,
         subject: 'Confirmacion de compra',
-        html: purchaseEmailTemplate,
+        html: purchaseEmailTemplate(ticket),
       }
 
       transporter.sendMail(mailOptions, (err, res) => {})

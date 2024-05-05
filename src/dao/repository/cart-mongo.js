@@ -64,6 +64,11 @@ export class CartMongo {
           `No existe el producto con el id proporcionado: ${productId}`
         )
       }
+
+      if (quantity > product.stock) {
+        throw new Error('No hay suficiente stock del producto')
+      }
+
       const productExistsInCart = cart.products.find((p) => {
         return p.product._id.toString() === product._id.toString()
       })

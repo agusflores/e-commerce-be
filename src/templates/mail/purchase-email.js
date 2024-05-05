@@ -15,17 +15,21 @@ export const purchaseEmailTemplate = (ticket) => `<!DOCTYPE html>
     />
   </head>
   <body>
-    <section class="max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900">
+    <section class="max-w-2xl px-6 py-8 mx-auto bg-white">
       <main class="mt-8">
-        <h2 class="text-gray-700 dark:text-gray-200">Hi,</h2>
+        <h2 class="text-gray-700">Hola,</h2>
 
-        <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
+        <p class="mt-2 leading-loose text-gray-600">
           Tu compra se ha realizado con exito! Muchas gracias por confiar en nosotros. Esperamos que vuelvas a visitarnos pronto.
         </p>
-
-        <p class="mt-8 text-gray-600 dark:text-gray-300">
+        <br />
+        <h3 class="text-gray-700">Los detalles de tu compra son los siguientes:</h3>
+        <p class="mt-2 text-gray-600">Codigo: ${ticket.code}</p>
+        <p class="mt-2 text-gray-600">Fecha: ${ticket.purchase_datetime}</p>
+        <p class="mt-2 text-gray-600">Total: $${ticket.amount}</p>
+        <p class="mt-8 text-gray-600">
           Gracias, <br />
-         Equipo E-commerce Backend 
+         Equipo E-commerce Backend
         </p>
       </main>
     </section>

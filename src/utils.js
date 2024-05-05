@@ -39,11 +39,12 @@ export const validateAdminRole = (req, res, next) => {
   if (!user) {
     return res
       .status(401)
-      .send({ status: 'error', error: 'User is not logged' })
+      .send({ status: 'error', error: 'El usuario no esta loggeado' })
   } else if (user.role !== 'admin') {
     return res.status(403).send({
       status: 'error',
-      error: 'User is not allowed to perform this action',
+      error:
+        'El usuario con rol distinto de admin no puede realizar esta accion',
     })
   } else {
     next()
@@ -55,11 +56,11 @@ export const validateUserRole = (req, res, next) => {
   if (!user) {
     return res
       .status(401)
-      .send({ status: 'error', error: 'User is not logged' })
+      .send({ status: 'error', error: 'El usuario no esta loggeado' })
   } else if (user.role !== 'user') {
     return res.status(403).send({
       status: 'error',
-      error: 'User is not allowed to perform this action',
+      error: 'El usuario con rol admin no puede realizar esta accion',
     })
   } else {
     next()

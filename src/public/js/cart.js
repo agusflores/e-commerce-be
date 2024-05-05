@@ -7,6 +7,6 @@ checkoutButton.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
   }).then(() => {
-    window.location.replace('/views/users')
+    window.location.replace('/views/profile')
   })
 })

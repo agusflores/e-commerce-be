@@ -15,15 +15,15 @@ export const welcomeEmailTemplate = `<!DOCTYPE html>
     />
   </head>
   <body>
-    <section class="max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900">
+    <section class="max-w-2xl px-6 py-8 mx-auto bg-white">
       <main class="mt-8">
-        <h2 class="text-gray-700 dark:text-gray-200">Hi,</h2>
+        <h2 class="text-gray-700">Hola,</h2>
 
-        <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
+        <p class="mt-2 leading-loose text-gray-600">
           Bienvenido a nuestro E-Commerce. Estamos muy contentos de tenerte con nosotros.
         </p>
 
-        <p class="mt-8 text-gray-600 dark:text-gray-300">
+        <p class="mt-8 text-gray-600">
           Gracias, <br />
           Equipo E-commerce Backend 
         </p>
