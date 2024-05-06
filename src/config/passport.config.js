@@ -19,6 +19,9 @@ const inicializePassport = () => {
         const { firstName, lastName, age, email, role } = req.body
         try {
           let user = await userModel.findOne({ email: email })
+          let users = await userModel.find()
+          let _role = users.length === 0 ? 'admin' : role
+
           if (user) {
             return done(null, false)
           }
@@ -30,6 +33,7 @@ const inicializePassport = () => {
             email,
             password: createHash(password),
             cart: cart,
+            role: _role,
           }
 
           const mailOptions = {
