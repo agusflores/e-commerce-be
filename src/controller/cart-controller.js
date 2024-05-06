@@ -1,5 +1,4 @@
-import { cartDao, ticketDao, userDao } from '../dao/index.js'
-import { PurchaseProductDTO } from '../dto/product/purchase-product-dto.js'
+import { cartDao, ticketDao, userDao, productDao } from '../dao/index.js'
 import { transporter } from '../config/gmail.js'
 import { purchaseEmailTemplate } from '../templates/mail/purchase-email.js'
 
@@ -70,7 +69,7 @@ class CartController {
         message: result,
       })
     } catch (error) {
-      // req.logger.error(error.message)
+      req.logger.error(error.message)
       return res.status(404).send({ status: 'error', error: error })
     }
   }
@@ -114,7 +113,6 @@ class CartController {
     try {
       const cartId = req.session.user.cart
       const cart = await cartDao.getCartById(cartId)
-      let productsToPurchase = []
 
       if (!cart) {
         return res
@@ -129,11 +127,8 @@ class CartController {
       }
 
       cart.products.forEach((elem) => {
-        if (elem.product.stock >= elem.quantity) {
-          elem.product.stock = elem.product.stock - elem.quantity
-          productsToPurchase.push(new PurchaseProductDTO(elem.product))
-          cart.products.filter((product) => product != elem)
-        }
+        elem.product.stock = elem.product.stock - elem.quantity
+        productDao.updateProductById(elem.product._id, elem.product)
       })
 
       const user = await userDao.getUserByCart(cart)
