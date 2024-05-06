@@ -37,7 +37,7 @@ form.addEventListener('submit', (e) => {
     },
   }).then((result) => {
     if (result.status === 200) {
-      window.location.replace('/views/login')
+      window.location.replace('/views/users/login')
     } else {
       console.log('Error al restaurar contraseña')
     }
