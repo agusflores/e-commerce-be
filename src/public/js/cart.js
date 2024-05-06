@@ -7,6 +7,14 @@ checkoutButton.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
   }).then(() => {
-    window.location.replace('/views/profile')
+    Swal.fire({
+      title: 'Se realizó la compra con éxito',
+      toast: true,
+      showConfirmButton: false,
+      position: 'top-end',
+      timer: 1000,
+    }).then(() => {
+      window.location.replace('/views/profile')
+    })
   })
 })
