@@ -47,4 +47,8 @@ router.get('/', AuthController.getUsers)
 
 router.get('/no-current', AuthController.getUsersWithoutCurrent)
 
+router.delete('/delete-user/:id', AuthController.deleteUserById)
+
+router.put('/update-user/:id', AuthController.updateUser)
+
 export { router as userRouter }
