@@ -22,6 +22,7 @@ const PORT = 8080
 const app = express()
 const MONGO =
   'mongodb+srv://agustinflores1505:tUreQzQk6yGuuN55@cluster0.2gugbsj.mongodb.net/e-commerce?retryWrites=true&w=majority'
+const connection = mongoose.connect(MONGO)
 
 app.use(
   session({
