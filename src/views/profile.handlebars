@@ -22,9 +22,25 @@
     <p>Edad: {{user.age}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
+  <input type='hidden' id='user-role' value='{{user.role}}' />
   <button
     id='logout-button'
     class='mt-2 px-3 bg-gray-300 rounded cursor-pointer hover:bg-gray-700 hover:text-white'
   >Salir</button>
+</div>
+<div id='adminView' class='hidden m-5 p-5 bg-gray-800 rounded'>
+  <h1 class='text-center text-xl text-white font-bold'>Lista de usuarios</h1>
+
+  <div
+    id='users-container'
+    class='p-3 bg-gray-300 m-2 rounded font-semibold w-full flex flex-col items-start justify-between'
+  >
+    <div class='w-2/4 flex items-center justify-between gap-2'>
+      <p>Nombre</p>
+      <p>Mail</p>
+      <p>Rol</p>
+    </div>
+  </div>
+
 </div>
 <script type='module' src='/js/logout.js'></script>

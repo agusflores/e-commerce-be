@@ -64,6 +64,21 @@ class AuthController {
 
     return usersDTO
   }
+
+  static getUsersWithoutCurrent = async (req, res) => {
+    const user = req.session.user
+    const users = await userModel.find()
+    const usersDTO = []
+
+    users.forEach((user) => {
+      const userDTO = new CommonDataUserDTO(user)
+      usersDTO.push(userDTO)
+    })
+
+    const filteredUsersList = usersDTO.filter((u) => u.email !== user.email)
+
+    return res.status(200).send({ users: filteredUsersList })
+  }
 }
 
 export { AuthController }

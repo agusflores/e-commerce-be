@@ -45,4 +45,6 @@ router.get(
 
 router.get('/', AuthController.getUsers)
 
+router.get('/no-current', AuthController.getUsersWithoutCurrent)
+
 export { router as userRouter }
