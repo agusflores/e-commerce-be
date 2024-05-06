@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('adminView').style.display = 'none'
   }
   const users = await getUsers()
+
   users.forEach((user) => {
     const userElement = document.createElement('div')
     userElement.classList.add(
@@ -18,15 +19,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       'justify-between',
       'mt-2'
     )
-    userElement.innerHTML = `<p class="mt-2 w-1/5 text-center text-gray-700 font-semibold">${
+
+    userElement.innerHTML = `<input type="hidden" class="user-id" value=${
+      user._id
+    } /> <p class="mt-2 w-1/5 text-center text-gray-700 font-semibold">${
       user.firstName
     } ${
       user.lastName
     }</p> <br /> <p class="w-1/5 text-center text-gray-700 font-semibold">${
       user.email
-    }</p> <input type='hidden' id='user-id'value='${
-      user._id
-    }' />  <br / > <p class="w-1/5 text-center text-gray-700 font-semibold">${capitalizeFirstLetter(
+    }</p>  <br / > <p class="w-1/5 text-center text-gray-700 font-semibold">${capitalizeFirstLetter(
       user.role
     )}</p> <p class="w-1/5 text-center text-gray-700 font-semibold">${
       user.age
@@ -72,6 +74,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const deleteUserButtons = document.querySelectorAll('.delete-user-btn')
 
   editUserButtons.forEach((button) => {
+    const id =
+      button.parentElement.parentElement.querySelector('.user-id').value
     button.addEventListener('click', async () => {
       Swal.fire({
         title: 'Actualizar rol de usuario',
@@ -90,7 +94,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         let newRole = result.value
         if (newRole) {
           newRole = newRole.toLowerCase()
-          const id = document.getElementById('user-id').value
           const body = { role: newRole }
           fetch(`/api/users/update-user/${id}`, {
             method: 'PUT',
@@ -130,8 +133,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   deleteUserButtons.forEach((button) => {
+    const id =
+      button.parentElement.parentElement.querySelector('.user-id').value
     button.addEventListener('click', async () => {
-      const id = document.getElementById('user-id').value
       fetch(`/api/users/delete-user/${id}`, {
         method: 'DELETE',
         headers: {
@@ -155,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.location.replace('/views/profile')
           })
         })
-        .catch((error) => {
+        .catch(() => {
           Swal.fire({
             title: 'Ocurrio un error al intentar eliminar el usuario',
             toast: true,

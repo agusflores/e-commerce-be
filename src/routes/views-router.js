@@ -2,6 +2,7 @@ import { Router } from 'express'
 import productModel from '../models/product.model.js'
 import messageModel from '../models/message.model.js'
 import cartModel from '../models/cart.model.js'
+import userModel from '../models/user.model.js'
 
 const router = new Router()
 
@@ -11,13 +12,10 @@ router.get('/chat', async (req, res) => {
 })
 
 router.get('/cart', async (req, res) => {
-  const user = req.session.user
+  const user = await userModel.findOne({ email: req.session.user.email }).exec()
   const cart = await cartModel.findById(user.cart).populate('products.product')
-  if (!cart) {
-    return res.status(404).send('Cart not found')
-  }
-
-  res.render('cart', { cart: cart.toJSON() })
+  const response = !cart ? [] : cart.toJSON()
+  res.render('cart', { cart: response })
 })
 
 router.get('/products', async (req, res) => {
